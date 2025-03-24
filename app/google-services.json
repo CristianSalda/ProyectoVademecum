@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "141317481870",
+    "project_id": "proyectovademecum-2025",
+    "storage_bucket": "proyectovademecum-2025.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:141317481870:android:5adf65df0270d8697b70df",
+        "android_client_info": {
+          "package_name": "com.vacum.proyectovademecum"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkpJjW5hgoEDYxwRrSi9nq-BRM4xiNqvM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
