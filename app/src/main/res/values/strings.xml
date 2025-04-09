@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">ProyectoVademecum</string>
+    <string name="Slogan">Diccionario farmacologico\npara el acceso de cualquiera</string>
+    <string name="logo_app">Logo APP</string>
+    <string name="Descriciónapp">Diccionario farmacologico</string>
+    <string name="inicio_sesion">Inicio de sesión</string>
+    <string name="registro">Registro</string>
+    <string name="emergencias">Emergencias</string>
+    <string name="title_activity_login">activity_login</string>
+    <string name="bienvenida">Bienvenido a Vademecum</string>
+    <string name="IS_1">E-mail</string>
+    <string name="IS_contraseña">Contraseña</string>
+    <string name="Olvido_Contraseña">¿Olvidaste tu contraseña?</string>
+    <string name="crear_cuenta">Crear cuenta</string>
+    <string name="correo_electronico">Correo electrónico</string>
+    <string name="nombre">Nombre</string>
+    <string name="apellido">Apellido</string>
+    <string name="fecha_de_nacimiento">Fecha de nacimiento</string>
+    <string name="nombre_de_usuario">Nombre de usuario</string>
+    <string name="tipo_de_persona">Tipo de persona</string>
+    <string name="registro_contraseña">Contraseña</string>
+    <string name="confirmar_contraseña">Confirmar contraseña</string>
+    <string name="registrarse">Registrarse</string>
 </resources>
