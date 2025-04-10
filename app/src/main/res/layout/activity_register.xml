@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#FFFFFF">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="24dp">
+
+        <ImageView
+            android:id="@+id/logoImageView"
+            android:layout_width="202dp"
+            android:layout_height="109dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/rounded_logo_background"
+            android:contentDescription="@string/logo_app"
+            android:scaleType="centerCrop"
+            android:src="@drawable/logito_app"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="6dp"
+            android:layout_margin="16dp"
+            app:cardBackgroundColor="#ECE9E9"
+            app:layout_constraintTop_toBottomOf="@id/logoImageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <FrameLayout
+                    android:id="@+id/segmentedControl"
+                    android:layout_width="300dp"
+                    android:layout_height="55dp"
+                    android:background="@drawable/segmented_background"
+                    android:padding="4dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <!-- Slider azul ahora sobre "Registro" -->
+                        <View
+                            android:id="@+id/slider"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:background="@drawable/slider_tab"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/btnRegister"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintWidth_percent="0.5" />
+
+                        <!-- Botón Inicio de sesión -->
+                        <TextView
+                            android:id="@+id/btnLogin"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="@string/inicio_sesion"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/btnRegister"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintWidth_percent="0.5" />
+
+                        <!-- Botón Registro -->
+                        <TextView
+                            android:id="@+id/btnRegister"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:text="@string/registro"
+                            android:textColor="@android:color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/btnLogin"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintWidth_percent="0.5" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </FrameLayout>
+
+                <!-- NOMBRE -->
+                <EditText
+                    android:id="@+id/nombreEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:autofillHints="Nombre"
+                    android:hint="@string/nombre"
+                    android:background="@android:color/transparent"
+                    android:inputType="textPersonName"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/gris_claro"
+                    app:layout_constraintTop_toBottomOf="@id/segmentedControl"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/gris_claro"
+                    app:layout_constraintTop_toBottomOf="@id/nombreEditText"
+                    app:layout_constraintStart_toStartOf="@id/nombreEditText"
+                    app:layout_constraintEnd_toEndOf="@id/nombreEditText" />
+
+                <!-- APELLIDO -->
+                <EditText
+                    android:id="@+id/apellidoEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:autofillHints="Apellidos"
+                    android:hint="@string/apellido"
+                    android:background="@android:color/transparent"
+                    android:inputType="textPersonName"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/gris_claro"
+                    app:layout_constraintTop_toBottomOf="@id/nombreEditText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/gris_claro"
+                    app:layout_constraintTop_toBottomOf="@id/apellidoEditText"
+                    app:layout_constraintStart_toStartOf="@id/apellidoEditText"
+                    app:layout_constraintEnd_toEndOf="@id/apellidoEditText" />
+
+                <!-- FECHA DE NACIMIENTO -->
+                <EditText
+                    android:id="@+id/fechaNacimientoEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:autofillHints="Fecha de nacimiento"
+                    android:hint="@string/fecha_de_nacimiento"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:inputType="none"
+                    android:background="@android:color/transparent"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/gris_claro"
+                    app:layout_constraintTop_toBottomOf="@id/apellidoEditText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/gris_claro"
+                    app:layout_constraintTop_toBottomOf="@id/fechaNacimientoEditText"
+                    app:layout_constraintStart_toStartOf="@id/fechaNacimientoEditText"
+                    app:layout_constraintEnd_toEndOf="@id/fechaNacimientoEditText" />
+
+                <!-- CORREO ELECTRÓNICO -->
+                <EditText
+                    android:id="@+id/emailEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:autofillHints="Correo Personal"
+                    android:hint="@string/correo_electronico"
+                    android:inputType="textEmailAddress"
+                    android:background="@android:color/transparent"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/gris_claro"
+                    app:layout_constraintTop_toBottomOf="@id/fechaNacimientoEditText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/gris_claro"
+                    app:layout_constraintTop_toBottomOf="@id/emailEditText"
+                    app:layout_constraintStart_toStartOf="@id/emailEditText"
+                    app:layout_constraintEnd_toEndOf="@id/emailEditText" />
+
+                <!-- NOMBRE DE USUARIO -->
+                <EditText
+                    android:id="@+id/usernameEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:autofillHints="Nombre de usuario unico"
+                    android:hint="@string/nombre_de_usuario"
+                    android:inputType="text"
+                    android:background="@android:color/transparent"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/gris_claro"
+                    app:layout_constraintTop_toBottomOf="@id/emailEditText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/gris_claro"
+                    app:layout_constraintTop_toBottomOf="@id/usernameEditText"
+                    app:layout_constraintStart_toStartOf="@id/usernameEditText"
+                    app:layout_constraintEnd_toEndOf="@id/usernameEditText" />
+
+                <!-- TIPO DE PERSONA -->
+                <AutoCompleteTextView
+                    android:id="@+id/tipoPersonaAutoComplete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:hint="@string/tipo_de_persona"
+                    android:background="@android:color/transparent"
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:clickable="true"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/gris_claro"
+                    app:layout_constraintTop_toBottomOf="@id/usernameEditText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/gris_claro"
+                    app:layout_constraintTop_toBottomOf="@id/tipoPersonaAutoComplete"
+                    app:layout_constraintStart_toStartOf="@id/tipoPersonaAutoComplete"
+                    app:layout_constraintEnd_toEndOf="@id/tipoPersonaAutoComplete" />
+
+                <!-- CONTRASEÑA -->
+                <EditText
+                    android:id="@+id/passwordEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:autofillHints="Contraseña"
+                    android:hint="@string/registro_contraseña"
+                    android:inputType="textPassword"
+                    android:background="@android:color/transparent"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/gris_claro"
+                    app:layout_constraintTop_toBottomOf="@id/tipoPersonaAutoComplete"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/gris_claro"
+                    app:layout_constraintTop_toBottomOf="@id/passwordEditText"
+                    app:layout_constraintStart_toStartOf="@id/passwordEditText"
+                    app:layout_constraintEnd_toEndOf="@id/passwordEditText" />
+
+                <!-- CONFIRMAR CONTRASEÑA -->
+                <EditText
+                    android:id="@+id/confirmPasswordEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
+                    android:autofillHints="Confirmación de contraseña"
+                    android:hint="@string/confirmar_contraseña"
+                    android:inputType="textPassword"
+                    android:background="@android:color/transparent"
+                    android:textColor="@android:color/black"
+                    android:textColorHint="@color/gris_claro"
+                    app:layout_constraintTop_toBottomOf="@id/passwordEditText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/gris_claro"
+                    app:layout_constraintTop_toBottomOf="@id/confirmPasswordEditText"
+                    app:layout_constraintStart_toStartOf="@id/confirmPasswordEditText"
+                    app:layout_constraintEnd_toEndOf="@id/confirmPasswordEditText" />
+
+                <Button
+                    android:id="@+id/registerButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="64dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="64dp"
+                    android:backgroundTint="#00B4D8"
+                    android:paddingTop="12dp"
+                    android:paddingBottom="12dp"
+                    android:text="@string/registrarse"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@id/confirmPasswordEditText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
