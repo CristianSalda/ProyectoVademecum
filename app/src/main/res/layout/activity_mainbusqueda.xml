@@ -31,7 +31,7 @@
             android:layout_height="32dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:contentDescription="Cuenta"
+            android:contentDescription="@string/cuenta"
             android:src="@drawable/cuenta" />
     </RelativeLayout>
 
@@ -49,6 +49,7 @@
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:contentDescription="@string/b_squeda"
             android:src="@android:drawable/ic_menu_search"
             app:tint="#888888" />
 
@@ -57,6 +58,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:autofillHints="Texto de busqueda de la barra"
             android:background="@null"
             android:hint="@string/b_squeda"
             android:inputType="text"
