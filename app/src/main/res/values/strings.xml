@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">ProyectoVademecum</string>
+    <string name="logo">logo</string>
+    <string name="b_squeda">Búsqueda...</string>
+    <string name="favoritos">Favoritos</string>
+    <string name="preescripci_n">Preescripción</string>
+    <string name="calculadora_dosis">Calculadora dosis</string>
+    <string name="b_squeda_por_tipos">Búsqueda por tipos</string>
+    <string name="historial">Historial</string>
+    <string name="por_enfermedad">Por enfermedad</string>
+    <string name="rese_as">Reseñas</string>
+    <string name="cuenta">Cuenta</string>
 </resources>
