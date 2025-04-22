@@ -1,11 +1,12 @@
 package com.vacum.proyectovademecum
 
+import android.animation.ObjectAnimator
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.util.Patterns
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.FirebaseApp
@@ -15,6 +16,9 @@ import com.google.firebase.ktx.Firebase
 import java.util.*
 
 class ActivityRegister : AppCompatActivity() {
+
+    private lateinit var sliderView: View
+    private lateinit var btnLoginSegment: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +35,30 @@ class ActivityRegister : AppCompatActivity() {
         val tipoPersonaField = findViewById<AutoCompleteTextView>(R.id.tipoPersonaAutoComplete)
         val botonRegistro = findViewById<Button>(R.id.registerButton)
 
+        sliderView = findViewById(R.id.slider)
+        val btnRegister = findViewById<TextView>(R.id.btnRegister)
+        btnLoginSegment = findViewById(R.id.btnLogin)
+
+        btnLoginSegment.setOnClickListener {
+            val animator = ObjectAnimator.ofFloat(sliderView, "translationX", sliderView.width.toFloat())
+            animator.duration = 300
+            animator.start()
+
+            val intent = Intent(this, ActivityLogin::class.java)
+            startActivity(intent)
+        }
+
+        btnRegister.setOnClickListener {
+            val animator = ObjectAnimator.ofFloat(sliderView, "translationX", 0f)
+            animator.duration = 300
+            animator.start()
+        }
+
+        // Redirige al login al hacer clic en el botón deslizable "Login"
+        btnLoginSegment.setOnClickListener {
+            startActivity(Intent(this, ActivityLogin::class.java))
+            finish() // Esto cerrará la pantalla de registro
+        }
 
         fechaNacimientoEditText.setOnClickListener {
             val calendario = Calendar.getInstance()
@@ -107,24 +135,25 @@ class ActivityRegister : AppCompatActivity() {
     }
 
     private fun crearUsuarioEnFirebase(email: String, password: String, datos: Map<String, String>) {
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+        val auth = FirebaseAuth.getInstance()
+
+        auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    val uid = task.result?.user?.uid ?: return@addOnCompleteListener
+                    val uid = auth.currentUser?.uid ?: return@addOnCompleteListener
 
-                    // Guardar en Firestore
                     Firebase.firestore.collection("usuarios").document(uid)
                         .set(datos)
                         .addOnSuccessListener {
-                            Log.d("Firestore", "Documento guardado en Firestore")
                             Toast.makeText(this@ActivityRegister, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(this@ActivityRegister, ActivityLogin::class.java)
-                            startActivity(intent)
-                            finish()
-                        }
 
+                            Handler(mainLooper).postDelayed({
+                                val intent = Intent(this@ActivityRegister, ActivityLogin::class.java)
+                                startActivity(intent)
+                                finish()
+                            }, 1000)
+                        }
                         .addOnFailureListener { e ->
-                            Log.e("Firestore", "Error al guardar en Firestore: ${e.message}")
                             Toast.makeText(this@ActivityRegister, "Error al guardar datos: ${e.message}", Toast.LENGTH_LONG).show()
                         }
                 } else {
@@ -132,5 +161,8 @@ class ActivityRegister : AppCompatActivity() {
                 }
             }
     }
+
+
+
 
 }

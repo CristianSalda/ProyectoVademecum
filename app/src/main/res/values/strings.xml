@@ -21,4 +21,5 @@
     <string name="registro_contraseña">Contraseña</string>
     <string name="confirmar_contraseña">Confirmar contraseña</string>
     <string name="registrarse">Registrarse</string>
+    <string name="notas_clinicas_titulo">Notas Clinicas</string>
 </resources>
