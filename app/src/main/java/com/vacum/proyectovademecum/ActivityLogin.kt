@@ -10,6 +10,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ActivityLogin : AppCompatActivity() {
 
@@ -86,15 +87,31 @@ class ActivityLogin : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Inicio de sesión exitoso
-                    Toast.makeText(this, "Bienvenido", Toast.LENGTH_SHORT).show()
-                    // Aquí puedes redirigir a la siguiente activity
-                    // startActivity(Intent(this, MainActivity::class.java))
-                    // finish()
+                    // Usuario autenticado, ahora verificamos su rol
+                    val uid = auth.currentUser?.uid
+                    val db = FirebaseFirestore.getInstance()
+
+                    if (uid != null) {
+                        db.collection("usuarios").document(uid).get()
+                            .addOnSuccessListener { document ->
+                                val tipoPersona = document.getString("tipoPersona")
+                                if (tipoPersona == "Especialista") {
+                                    startActivity(Intent(this, NotasActivity::class.java))
+                                    finish()
+                                } else {
+                                    Toast.makeText(this, "Acceso restringido solo a especialistas", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                            .addOnFailureListener {
+                                Toast.makeText(this, "Error al verificar el tipo de persona", Toast.LENGTH_SHORT).show()
+                            }
+                    }
                 } else {
-                    // Fallo en la autenticación
                     Toast.makeText(this, "Error al iniciar sesión", Toast.LENGTH_SHORT).show()
                 }
             }
     }
+
+
+
 }

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/notasClinicasLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <!-- Encabezado visual -->
+    <ImageView
+        android:id="@+id/encabezado"
+        android:layout_width="280dp"
+        android:layout_height="34dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:srcCompat="@drawable/vademecum_encabezado" />
+
+    <ImageView
+        android:id="@+id/usuario"
+        android:layout_width="50dp"
+        android:layout_height="35dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/titulonotas"
+        app:srcCompat="@drawable/imgusuario" />
+
+    <ImageView
+        android:id="@+id/atras"
+        android:layout_width="53dp"
+        android:layout_height="34dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/titulonotas"
+        app:srcCompat="@drawable/imgatras" />
+
+    <!-- Título azul -->
+    <TextView
+        android:id="@+id/titulonotas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:background="#007AC1"
+        android:gravity="center"
+        android:text="@string/notas_clinicas_titulo"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Texto introductorio -->
+    <TextView
+        android:id="@+id/textIntroNotas"
+        android:layout_width="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="@string/Apartado_notas"
+        android:textColor="#333333"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:background="@drawable/bg_text_intro"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/titulonotas" />
+
+    <!-- Texto si no hay notas -->
+    <TextView
+        android:id="@+id/textNoHayNotas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/texto_nohaynotas"
+        android:textSize="15sp"
+        android:textColor="#777777"
+        android:background="@drawable/bg_text_intro"
+        android:visibility="gone"
+        android:layout_marginTop="16dp"
+        android:paddingHorizontal="16dp"
+        android:paddingVertical="8dp"
+        app:layout_constraintTop_toBottomOf="@id/textIntroNotas"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- RecyclerView de notas -->
+
+    <!-- Botón Agregar nota -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerNotas"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnAgregarNota"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textIntroNotas"/>
+
+    <Button
+        android:id="@+id/btnAgregarNota"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/agregar_nota_boton"
+        android:drawableLeft="@drawable/ic_add"
+        android:backgroundTint="#00BFFF"
+        android:textColor="#000"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

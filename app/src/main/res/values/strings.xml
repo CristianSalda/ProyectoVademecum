@@ -22,4 +22,13 @@
     <string name="confirmar_contraseña">Confirmar contraseña</string>
     <string name="registrarse">Registrarse</string>
     <string name="notas_clinicas_titulo">Notas Clinicas</string>
+    <string name="agregar_nota_boton">Agregar nota</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="contenido_de_la_nota">Contenido de la nota...</string>
+    <string name="nota_1">Nota 1</string>
+    <string name="titulo">Título</string>
+    <string name="contenido">Contenido</string>
+    <string name="eliminar_nota_descripción">Eliminar nota</string>
+    <string name="texto_nohaynotas">En este punto no hay notas</string>
+    <string name="Apartado_notas">En este apartado estarían apuntes privados de los médicos</string>
 </resources>

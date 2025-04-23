@@ -8,5 +8,8 @@
     <color name="negro">#000000</color>
     <color name="campo_fondo">#F0F0F0</color>
     <color name="gris_medio">#888888</color>
-
+    <color name="primaryColor">#007AC1</color>
+    <color name="errorColor">#FF5252</color>
+    <color name="gray_500">#9E9E9E</color>
+    <color name="gray_700">#616161</color>
 </resources>
