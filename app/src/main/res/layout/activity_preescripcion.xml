@@ -7,21 +7,18 @@
     android:layout_height="match_parent"
     tools:context=".Preescripción">
 
-    }
-
-
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="280dp"
         android:layout_height="34dp"
         android:layout_marginTop="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/contenedorOrden"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.055"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/vademecum" />
-
 
     <ImageView
         android:id="@+id/imageView7"
@@ -34,7 +31,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.444"
-        app:srcCompat="@drawable/imgUsuario" />
+        />
 
     <TextView
         android:id="@+id/toolbarTitle"
@@ -61,8 +58,10 @@
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:padding="12dp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="105dp">
+        app:layout_constraintBottom_toTopOf="@+id/contenedorOrden"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarTitle">
 
         <TextView
             android:id="@+id/titleText"
@@ -89,46 +88,51 @@
 
     <LinearLayout
         android:id="@+id/contenedorOrden"
-        android:layout_width="378dp"
-        android:layout_height="548dp"
+        android:layout_width="382dp"
+        android:layout_height="573dp"
         android:layout_margin="16dp"
         android:layout_weight="1"
         android:background="@drawable/rounded_super_light_blue"
         android:orientation="vertical"
         android:padding="16dp"
-        tools:layout_editor_absoluteX="17dp"
-        tools:layout_editor_absoluteY="153dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.551"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
 
         <EditText
             android:id="@+id/searchEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Búsqueda..."
+            android:background="@drawable/rounded_search_box"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="8dp"
-            android:background="@drawable/rounded_search_box"
+            android:hint="Búsqueda..."
+            android:inputType="text"
             android:padding="12dp"
-            android:textColorHint="#999999"
             android:textColor="#000000"
-            android:inputType="text" />
+            android:textColorHint="#999999" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:background="@drawable/bg_medicamento_item"
-            android:orientation="horizontal"
-            android:padding="12dp"
+            android:elevation="2dp"
             android:gravity="center_vertical"
-            android:elevation="2dp">
+            android:orientation="horizontal"
+            android:padding="12dp">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
                 android:text="Medicamento X"
                 android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:fontFamily="sans-serif-medium" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/plusIcon2"
@@ -139,24 +143,25 @@
                 android:textColor="#000000"
                 android:textSize="18sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:background="@drawable/bg_medicamento_item"
-            android:orientation="horizontal"
-            android:padding="12dp"
+            android:elevation="2dp"
             android:gravity="center_vertical"
-            android:elevation="2dp">
+            android:orientation="horizontal"
+            android:padding="12dp">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
                 android:text="Medicamento Y"
                 android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:fontFamily="sans-serif-medium" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/plusIcon3"
@@ -167,24 +172,25 @@
                 android:textColor="#000000"
                 android:textSize="18sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:background="@drawable/bg_medicamento_item"
-            android:orientation="horizontal"
-            android:padding="12dp"
+            android:elevation="2dp"
             android:gravity="center_vertical"
-            android:elevation="2dp">
+            android:orientation="horizontal"
+            android:padding="12dp">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
                 android:text="Medicamento X"
                 android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:fontFamily="sans-serif-medium" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/plusIcon4"
@@ -195,24 +201,25 @@
                 android:textColor="#000000"
                 android:textSize="18sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:background="@drawable/bg_medicamento_item"
-            android:orientation="horizontal"
-            android:padding="12dp"
+            android:elevation="2dp"
             android:gravity="center_vertical"
-            android:elevation="2dp">
+            android:orientation="horizontal"
+            android:padding="12dp">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
                 android:text="Medicamento Y"
                 android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:fontFamily="sans-serif-medium" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/plusIcon6"
@@ -223,24 +230,25 @@
                 android:textColor="#000000"
                 android:textSize="18sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:background="@drawable/bg_medicamento_item"
-            android:orientation="horizontal"
-            android:padding="12dp"
+            android:elevation="2dp"
             android:gravity="center_vertical"
-            android:elevation="2dp">
+            android:orientation="horizontal"
+            android:padding="12dp">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
                 android:text="Medicamento X"
                 android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:fontFamily="sans-serif-medium" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/plusIco5"
@@ -251,24 +259,25 @@
                 android:textColor="#000000"
                 android:textSize="18sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:background="@drawable/bg_medicamento_item"
-            android:orientation="horizontal"
-            android:padding="12dp"
+            android:elevation="2dp"
             android:gravity="center_vertical"
-            android:elevation="2dp">
+            android:orientation="horizontal"
+            android:padding="12dp">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
                 android:text="Medicamento Y"
                 android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:fontFamily="sans-serif-medium" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/plusIcon7"
@@ -279,24 +288,25 @@
                 android:textColor="#000000"
                 android:textSize="18sp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
             android:background="@drawable/bg_medicamento_item"
-            android:orientation="horizontal"
-            android:padding="12dp"
+            android:elevation="2dp"
             android:gravity="center_vertical"
-            android:elevation="2dp">
+            android:orientation="horizontal"
+            android:padding="12dp">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
                 android:text="Medicamento X"
                 android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:fontFamily="sans-serif-medium" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/plusIcon"
@@ -307,10 +317,6 @@
                 android:textColor="#000000"
                 android:textSize="18sp" />
         </LinearLayout>
-
-
-
-
 
 
     </LinearLayout>

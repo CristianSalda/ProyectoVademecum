@@ -11,12 +11,12 @@
         android:id="@+id/imageView6"
         android:layout_width="280dp"
         android:layout_height="34dp"
-        app:layout_constraintBottom_toTopOf="@+id/grayContainer"
+
+        app:layout_constraintBottom_toTopOf="@+id/toolbarTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.055"
         app:srcCompat="@drawable/vademecum" />
 
     <ImageView
@@ -30,7 +30,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/imgUsuario" />
+       />
 
     <TextView
         android:id="@+id/toolbarTitle"
@@ -42,11 +42,12 @@
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/grayContainer"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.639" />
+        app:layout_constraintVertical_bias="0.062" />
+
     <LinearLayout
         android:id="@+id/grayContainer"
         android:layout_width="391dp"
@@ -58,9 +59,11 @@
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.25"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+
+        app:layout_constraintTop_toBottomOf="@+id/toolbarTitle"
+        app:layout_constraintVertical_bias="0.0">
 
         <!-- Texto del botón -->
 
@@ -111,12 +114,12 @@
         android:id="@+id/imageView8"
         android:layout_width="52dp"
         android:layout_height="31dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/toolbarTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.005"
+        app:layout_constraintHorizontal_bias="0.013"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.004"
         app:srcCompat="@drawable/imgatras" />
 
 

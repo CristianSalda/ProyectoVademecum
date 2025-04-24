@@ -5,6 +5,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import android.content.Intent
+import android.widget.LinearLayout
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,5 +19,12 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        val btnAgregar = findViewById<LinearLayout>(R.id.addPrescriptionButton)
+
+        btnAgregar.setOnClickListener {
+            val intent = Intent(this, AgregarMedica::class.java)
+            startActivity(intent)
+        }
+
     }
 }
