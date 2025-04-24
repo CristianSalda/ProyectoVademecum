@@ -87,7 +87,6 @@ class ActivityLogin : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Usuario autenticado, ahora verificamos su rol
                     val uid = auth.currentUser?.uid
                     val db = FirebaseFirestore.getInstance()
 
@@ -95,11 +94,18 @@ class ActivityLogin : AppCompatActivity() {
                         db.collection("usuarios").document(uid).get()
                             .addOnSuccessListener { document ->
                                 val tipoPersona = document.getString("tipoPersona")
-                                if (tipoPersona == "Especialista") {
-                                    startActivity(Intent(this, NotasActivity::class.java))
-                                    finish()
-                                } else {
-                                    Toast.makeText(this, "Acceso restringido solo a especialistas", Toast.LENGTH_SHORT).show()
+                                when (tipoPersona) {
+                                    "Especialista" -> {
+                                        startActivity(Intent(this, Mainespecialista::class.java))
+                                        finish()
+                                    }
+                                    "Natural" -> {
+                                        startActivity(Intent(this, Mainnatural::class.java))
+                                        finish()
+                                    }
+                                    else -> {
+                                        Toast.makeText(this, "Tipo de usuario no válido", Toast.LENGTH_SHORT).show()
+                                    }
                                 }
                             }
                             .addOnFailureListener {
@@ -111,6 +117,7 @@ class ActivityLogin : AppCompatActivity() {
                 }
             }
     }
+
 
 
 

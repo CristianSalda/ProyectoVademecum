@@ -19,6 +19,15 @@
             android:name=".ActivityRegister"
             android:exported="false" />
         <activity
+            android:name=".Mainbusqueda"
+            android:exported="false" />
+        <activity
+            android:name=".Mainespecialista"
+            android:exported="false" />
+        <activity
+            android:name=".Mainnatural"
+            android:exported="false" />
+        <activity
             android:name=".ActivityLogin"
             android:exported="false"
             android:label="@string/title_activity_login"

@@ -1,6 +1,7 @@
 package com.vacum.proyectovademecum
 import android.os.Bundle
 import android.content.Intent
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 
@@ -14,5 +15,11 @@ class Mainnatural : AppCompatActivity() {
             val intent = Intent(this, Mainbusqueda::class.java)
             startActivity(intent)
         }
+
+        //val preescripcion = findViewById<ImageView>(R.id.imgPreescripcion)
+        //searchBar.setOnClickListener {
+        //    val intent = Intent(this, NuevaPree::class.java)
+        //    startActivity(intent)
+        //}
     }
 }
