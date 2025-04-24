@@ -14,7 +14,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 
 
-class MedicamentosGuardadosActivity : AppCompatActivity() {
+class MedicamentoAgr : AppCompatActivity() {
     private lateinit var firestore: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
     private lateinit var recyclerView: RecyclerView

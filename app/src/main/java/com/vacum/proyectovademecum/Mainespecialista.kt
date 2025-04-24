@@ -25,5 +25,10 @@ class Mainespecialista : AppCompatActivity() {
             val intent = Intent(this, NotasActivity::class.java)
             startActivity(intent)
         }
+        val preescripcion = findViewById<ImageView>(R.id.imgPreescripcion)
+        preescripcion.setOnClickListener {
+            val intent = Intent(this, NuevaPree::class.java)
+            startActivity(intent)
+        }
     }
 }

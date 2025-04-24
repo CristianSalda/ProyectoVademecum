@@ -16,10 +16,10 @@ class Mainnatural : AppCompatActivity() {
             startActivity(intent)
         }
 
-        //val preescripcion = findViewById<ImageView>(R.id.imgPreescripcion)
-        //searchBar.setOnClickListener {
-        //    val intent = Intent(this, NuevaPree::class.java)
-        //    startActivity(intent)
-        //}
+        val preescripcion = findViewById<ImageView>(R.id.imgPreescripcion)
+        preescripcion.setOnClickListener {
+           val intent = Intent(this, NuevaPree::class.java)
+           startActivity(intent)
+        }
     }
 }
