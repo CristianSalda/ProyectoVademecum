@@ -13,22 +13,7 @@
         android:theme="@style/Theme.ProyectoVademecum"
         tools:targetApi="31">
         <activity
-            android:name=".PreescripcionGRD"
-            android:exported="false" />
-        <activity
-            android:name=".OpcionesporMed"
-            android:exported="false" />
-        <activity
-            android:name=".MedicamentoAgr"
-            android:exported="false" />
-        <activity
-            android:name=".AgregarMedica"
-            android:exported="false" />
-        <activity
-            android:name=".NuevaPree"
-            android:exported="false" />
-        <activity
-            android:name=".Preescripción"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

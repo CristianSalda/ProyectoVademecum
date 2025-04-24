@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:layout_margin="8dp"
+    android:background="@drawable/bg_nota_card"
+    android:elevation="4dp"
+    android:outlineProvider="bounds">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_nota_titulo"
+        android:padding="12dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:elevation="2dp">
+
+        <TextView
+            android:id="@+id/txtTituloNota"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/nota_1"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/btnEliminarNota"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@android:drawable/ic_delete"
+            android:backgroundTint="#00B0E0"
+            android:contentDescription="@string/eliminar_nota_descripción"
+            app:tint="#000000" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txtContenidoNota"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/contenido_de_la_nota"
+        android:background="@drawable/bg_contenido"
+        android:padding="12dp"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp"
+        android:textColor="#000000"/>
+</LinearLayout>
