@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,18 +15,17 @@
         android:theme="@style/Theme.ProyectoVademecum"
         tools:targetApi="31">
         <activity
-            android:name=".Mainbusqueda"
-            android:exported="false"/>
-        <activity
-            android:name=".Mainespecialista"
-            android:exported="false"/>
-        <activity
-            android:name=".Mainnatural"
+            android:name=".Activity_guardados"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Mainbusqueda"
+            android:exported="false" />
+        <activity
+            android:name=".Mainespecialista"
+            android:exported="false" />
+        <activity
+            android:name=".Mainnatural"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

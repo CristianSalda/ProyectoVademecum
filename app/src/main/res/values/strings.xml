@@ -12,4 +12,6 @@
     <string name="cuenta">Cuenta</string>
     <string name="ConfigCuent">Cuenta</string>
     <string name="notas_cl_nicas">Notas Clínicas</string>
+    <string name="regresar" />
+    <string name="medicamentos_guardados">Medicamentos guardados</string>
 </resources>
