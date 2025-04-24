@@ -58,7 +58,7 @@ class Mainbusqueda : AppCompatActivity() {
                     texto = nombre,
                     idiomaDestino = "en",
                     formato = "text",
-                    apiKey = "AIzaSyB7KFKhaWH1NCWPrdpFoqzNijGfqWMb1ck"
+                    apiKey = "Api_Key_aqui"
                 )
 
                 val nombreEnIngles = traduccion.body()
@@ -88,7 +88,7 @@ class Mainbusqueda : AppCompatActivity() {
                         texto = textoOriginal,
                         idiomaDestino = "es",
                         formato = "text",
-                        apiKey = "AIzaSyB7KFKhaWH1NCWPrdpFoqzNijGfqWMb1ck"
+                        apiKey = "Api_Key_Aqui"
                     )
 
                     if (traduccion.isSuccessful) {
