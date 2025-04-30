@@ -25,5 +25,12 @@ class Mainespecialista : AppCompatActivity() {
             val intent = Intent(this, NotasActivity::class.java)
             startActivity(intent)
         }
+
+        val favoritos = findViewById<LinearLayout>(R.id.favoritos)
+
+        favoritos.setOnClickListener {
+            val intent = Intent(this, Activity_guardados::class.java)
+            startActivity(intent)
+        }
     }
 }

@@ -42,4 +42,6 @@
     <string name="rese_as">Reseñas\n</string>
     <string name="ConfigCuent">Configuración de cuenta</string>
     <string name="notas_cl_nicas">Notas Clínicas\n</string>
+    <string name="medicamentos_guardados">Medicamentos guardados</string>
+    <string name="subtitulofav">Aqui encontraras los medicamentos guardados</string>
 </resources>

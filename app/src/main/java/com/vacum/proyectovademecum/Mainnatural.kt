@@ -16,6 +16,13 @@ class Mainnatural : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val favoritos = findViewById<LinearLayout>(R.id.favoritos)
+
+        favoritos.setOnClickListener {
+            val intent = Intent(this, Activity_guardados::class.java)
+            startActivity(intent)
+        }
+
         //val preescripcion = findViewById<ImageView>(R.id.imgPreescripcion)
         //searchBar.setOnClickListener {
         //    val intent = Intent(this, NuevaPree::class.java)
