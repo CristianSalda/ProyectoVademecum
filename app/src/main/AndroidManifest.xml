@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -35,6 +36,23 @@
             android:exported="false"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.ProyectoVademecum" />
+        <activity
+            android:name=".PreescripcionGRD"
+            android:exported="false" />
+        <activity
+            android:name=".OpcionesporMed"
+            android:exported="true" />
+        <activity android:name=".MedicamentosGuardadosActivity" />
+        <activity
+            android:name=".AgregarMedica"
+            android:exported="false" />
+        <activity
+            android:name=".Preescripción"
+            android:exported="false" />
+        <activity
+            android:name=".NuevaPree"
+            android:exported="false">
+        </activity>
         <activity
             android:name=".AbrirAppActivity"
             android:exported="true">

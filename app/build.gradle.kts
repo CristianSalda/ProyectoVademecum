@@ -56,7 +56,8 @@ dependencies {
     implementation(libs.firebase.firestore)
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-    implementation(libs.androidx.lifecycle.runtime.ktx.v262)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.kotlinx.coroutines.android)
-
+    implementation (libs.google.firebase.firestore)
+    implementation (libs.google.firebase.auth)
 }
