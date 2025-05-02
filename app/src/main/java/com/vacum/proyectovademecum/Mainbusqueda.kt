@@ -5,6 +5,9 @@ import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -50,6 +53,40 @@ class Mainbusqueda : AppCompatActivity() {
         backButton.setOnClickListener {
             finish()
         }
+
+        val guardarBtn = findViewById<FloatingActionButton>(R.id.btnGuardarFavorito)
+
+        guardarBtn.setOnClickListener {
+            val userId = FirebaseAuth.getInstance().currentUser?.uid
+            if (userId == null) {
+                Toast.makeText(this, "Debes iniciar sesión", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val nombre = searchInput.text.toString().trim()
+            val descripcion = resultText.text.toString().trim()
+
+            if (nombre.isEmpty() || descripcion.isEmpty()) {
+                Toast.makeText(this, "No hay datos para guardar", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val medicamento = MedicamentoFavorito(
+                nombre = nombre,
+                descripcion = descripcion,
+                usuarioId = userId
+            )
+
+            FirebaseFirestore.getInstance().collection("medicamentos_favs")
+                .add(medicamento)
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Medicamento guardado", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(this, "Error al guardar", Toast.LENGTH_SHORT).show()
+                }
+        }
+
     }
     private fun buscarMedicamento(nombre: String) {
         lifecycleScope.launch {

@@ -13,6 +13,9 @@
         android:theme="@style/Theme.ProyectoVademecum"
         tools:targetApi="31">
         <activity
+            android:name=".Activity_guardados"
+            android:exported="false" />
+        <activity
             android:name=".NotasActivity"
             android:exported="false" />
         <activity
