@@ -19,7 +19,7 @@ class Mainespecialista : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val notas = findViewById<ImageView>(R.id.imageViewNotas)
+        val notas = findViewById<LinearLayout>(R.id.LinearLayoutNotas)
 
         notas.setOnClickListener {
             val intent = Intent(this, NotasActivity::class.java)

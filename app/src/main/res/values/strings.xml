@@ -44,4 +44,6 @@
     <string name="notas_cl_nicas">Notas Clínicas\n</string>
     <string name="medicamentos_guardados">Medicamentos guardados</string>
     <string name="subtitulofav">Aqui encontraras los medicamentos guardados</string>
+    <string name="logo">logoimage\n</string>
+    <string name="regresar">boton regresar\n</string>
 </resources>

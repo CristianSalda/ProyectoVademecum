@@ -288,6 +288,7 @@
             <!-- Opción 9: Notas Clínicas -->
 
             <LinearLayout
+                android:id="@+id/LinearLayoutNotas"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
