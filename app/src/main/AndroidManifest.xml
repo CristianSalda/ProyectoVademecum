@@ -38,10 +38,8 @@
             android:exported="false" />
         <activity
             android:name=".OpcionesporMed"
-            android:exported="false" />
-        <activity
-            android:name=".MedicamentoAgr"
-            android:exported="false" />
+            android:exported="true" />
+        <activity android:name=".MedicamentosGuardadosActivity" />
         <activity
             android:name=".AgregarMedica"
             android:exported="false" />

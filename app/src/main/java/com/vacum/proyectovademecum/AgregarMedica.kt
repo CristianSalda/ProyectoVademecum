@@ -1,11 +1,13 @@
 package com.vacum.proyectovademecum
 
+import android.content.Intent
 import android.widget.Toast
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +24,10 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class AgregarMedica : AppCompatActivity() {
+
+    private val medicamentosSeleccionados = mutableListOf<String>()
+
+
 
     private lateinit var firestore: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
@@ -46,6 +52,25 @@ class AgregarMedica : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_agregar_medica)
+        val btnCarrito = findViewById<ImageView>(R.id.btnCarrito)
+        val imageViewAgregar = findViewById<ImageView>(R.id.imageView8)
+
+        imageViewAgregar.setOnClickListener {
+            val intent = Intent(this, NuevaPree::class.java)
+            startActivity(intent)
+        }
+
+        btnCarrito.setOnClickListener {
+            if (medicamentosSeleccionados.isNotEmpty()) {
+                val intent = Intent(this, MedicamentosGuardadosActivity::class.java)
+                intent.putStringArrayListExtra("listaMedicamentos", ArrayList(medicamentosSeleccionados))
+                startActivity(intent)
+            } else {
+                Toast.makeText(this, "No has agregado medicamentos aún", Toast.LENGTH_SHORT).show()
+            }
+            Log.d("MedicamentosGuardados", "Lista recibida: $medicamentosSeleccionados")
+
+        }
 
 
         // Inicializa Firebase
@@ -76,6 +101,14 @@ class AgregarMedica : AppCompatActivity() {
             .create()
             .show()
     }
+    private fun extraerCampo(texto: String, etiqueta: String): String {
+        val regex = Regex("$etiqueta\\s*(.*)")
+        val match = regex.find(texto)
+        return match?.groups?.get(1)?.value?.trim() ?: "Desconocido"
+    }
+
+
+
 
     private fun configurarAdapter(medicamentos: List<String>) {
         recyclerView.adapter = MedicamentoAdapter(
@@ -84,10 +117,18 @@ class AgregarMedica : AppCompatActivity() {
                 mostrarDetalleMedicamento(textoCompleto)
             },
             onAgregarClick = { textoCompleto ->
-                guardarEnFirebase(textoCompleto)
+                val marca = extraerCampo(textoCompleto, "Marca:")
+                val fabricante = extraerCampo(textoCompleto, "Fabricante:")
+                val resumen = "$marca - $fabricante"
+
+                medicamentosSeleccionados.add(resumen)
+                guardarEnFirebase(resumen)  // ✅ solo guardas marca y fabricante
+                Toast.makeText(this, "Agregado al carrito (${medicamentosSeleccionados.size})", Toast.LENGTH_SHORT).show()
             }
+
         )
     }
+
 
     private fun guardarEnFirebase(medicamentoInfo: String) {
         val user = auth.currentUser
@@ -141,7 +182,7 @@ class AgregarMedica : AppCompatActivity() {
                         texto = nombre,
                         idiomaDestino = "en",
                         formato = "text",
-                        apiKey = "AIzaSyB7KFKhaWH1NCWPrdpFoqzNijGfqWMb1ck"
+                        apiKey = "AIzaSyBflXNFxBkYxK10GmF6m1j-gvKi0mmuCEk"
                     ).body()?.data?.translations?.firstOrNull()?.translatedText ?: nombre
                 }
 
@@ -174,7 +215,7 @@ class AgregarMedica : AppCompatActivity() {
                                     texto = textoIndividual,
                                     idiomaDestino = "es",
                                     formato = "text",
-                                    apiKey = "AIzaSyB7KFKhaWH1NCWPrdpFoqzNijGfqWMb1ck"
+                                    apiKey = "AIzaSyBflXNFxBkYxK10GmF6m1j-gvKi0mmuCEk"
                                 ).body()?.data?.translations?.firstOrNull()?.translatedText ?: textoIndividual
                             }
                         }
