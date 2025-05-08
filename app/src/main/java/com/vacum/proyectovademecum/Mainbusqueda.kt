@@ -145,11 +145,23 @@ class Mainbusqueda : AppCompatActivity() {
                 } else {
                     resultText.text = "No se encontró información para '$nombre'."
                 }
-
             } catch (e: Exception) {
                 resultText.text = "Error: ${e.message}"
                 Log.e("API_ERROR", e.toString())
             }
+            val userId = FirebaseAuth.getInstance().currentUser?.uid
+            if (userId != null) {
+                val historial = HistorialBusqueda(nombre = nombre, usuarioId = userId)
+                FirebaseFirestore.getInstance().collection("historial_busquedas")
+                    .add(historial)
+                    .addOnSuccessListener {
+                        Log.d("Historial", "Búsqueda guardada")
+                    }
+                    .addOnFailureListener {
+                        Log.e("Historial", "Error al guardar historial", it)
+                    }
+            }
+
         }
     }
 }

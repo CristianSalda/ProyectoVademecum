@@ -27,6 +27,9 @@
             android:name=".ActivityPerfil"
             android:exported="false" />
         <activity
+            android:name=".HistorialActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activity_guardados"
             android:exported="false" />
         <activity

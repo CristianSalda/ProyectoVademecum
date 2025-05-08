@@ -1,6 +1,7 @@
 package com.vacum.proyectovademecum
 import android.os.Bundle
 import android.content.Intent
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -33,6 +34,12 @@ class Mainnatural : AppCompatActivity() {
             val intent = Intent(this, Activity_guardados::class.java)
             startActivity(intent)
         }
+        val historialBtn = findViewById<LinearLayout>(R.id.itemHistorial)
+        historialBtn.setOnClickListener {
+            val intent = Intent(this, HistorialActivity::class.java)
+            startActivity(intent)
+        }
+
 
         val preescripcion = findViewById<ImageView>(R.id.imgPreescripcion)
         preescripcion.setOnClickListener {
