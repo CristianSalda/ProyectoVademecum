@@ -1,5 +1,6 @@
 package com.vacum.proyectovademecum
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Toast
@@ -24,6 +25,13 @@ class Activity_guardados : AppCompatActivity() {
         // Botón atrás
         val btnatras = findViewById<ImageView>(R.id.atras)
         btnatras.setOnClickListener { finish() }
+
+        val perfil = findViewById<ImageView>(R.id.usuario)
+
+        perfil.setOnClickListener {
+            val intent = Intent(this, ActivityPerfil::class.java)
+            startActivity(intent)
+        }
 
         // RecyclerView setup
         recyclerView = findViewById(R.id.recyclerFavoritos)

@@ -1,5 +1,6 @@
 package com.vacum.proyectovademecum
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -50,6 +51,13 @@ class NotasActivity : AppCompatActivity() {
         val btnatras = findViewById<ImageView>(R.id.atras)
         btnatras.setOnClickListener {
             finish()
+        }
+
+        val perfil = findViewById<ImageView>(R.id.usuario)
+
+        perfil.setOnClickListener {
+            val intent = Intent(this, ActivityPerfil::class.java)
+            startActivity(intent)
         }
     }
 

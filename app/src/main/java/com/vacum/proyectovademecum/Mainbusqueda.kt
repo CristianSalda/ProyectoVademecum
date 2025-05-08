@@ -1,5 +1,6 @@
 package com.vacum.proyectovademecum
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.*
@@ -34,6 +35,12 @@ class Mainbusqueda : AppCompatActivity() {
         searchButton = findViewById(R.id.searchBar)
         resultText = findViewById(R.id.textViewResults)
 
+        val perfil = findViewById<ImageView>(R.id.accountIcon)
+
+        perfil.setOnClickListener {
+            val intent = Intent(this, ActivityPerfil::class.java)
+            startActivity(intent)
+        }
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.fda.gov/")
             .addConverterFactory(GsonConverterFactory.create())

@@ -27,8 +27,6 @@ class AgregarMedica : AppCompatActivity() {
 
     private val medicamentosSeleccionados = mutableListOf<String>()
 
-
-
     private lateinit var firestore: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
     private lateinit var searchInput: EditText
@@ -111,7 +109,7 @@ class AgregarMedica : AppCompatActivity() {
 
 
     private fun configurarAdapter(medicamentos: List<String>) {
-        recyclerView.adapter = MedicamentoAdapter(
+        recyclerView.adapter = MedicamentoAdapterPreescripcion(
             medicamentos,
             onItemClick = { textoCompleto ->
                 mostrarDetalleMedicamento(textoCompleto)
@@ -226,7 +224,7 @@ class AgregarMedica : AppCompatActivity() {
                         }
                     } else {
                         runOnUiThread {
-                            recyclerView.adapter = MedicamentoAdapter(
+                            recyclerView.adapter = MedicamentoAdapterPreescripcion(
                                 listOf("No se encontraron resultados para '$nombre'"),
                                 onItemClick = { mostrarDetalleMedicamento(it) },
                                 onAgregarClick = { guardarEnFirebase(it) }
@@ -235,7 +233,7 @@ class AgregarMedica : AppCompatActivity() {
                     }
                 } else {
                     runOnUiThread {
-                        recyclerView.adapter = MedicamentoAdapter(
+                        recyclerView.adapter = MedicamentoAdapterPreescripcion(
                             listOf("Error en la API: ${response.message()}"),
                             onItemClick = { mostrarDetalleMedicamento(it) },
                             onAgregarClick = { guardarEnFirebase(it) }
@@ -245,7 +243,7 @@ class AgregarMedica : AppCompatActivity() {
             } catch (e: Exception) {
                 Log.e("AgregarMedica", "Error: ${e.message}", e)
                 runOnUiThread {
-                    recyclerView.adapter = MedicamentoAdapter(
+                    recyclerView.adapter = MedicamentoAdapterPreescripcion(
                         listOf("Error: ${e.localizedMessage ?: "Error desconocido"}"),
                         onItemClick = { mostrarDetalleMedicamento(it) },
                         onAgregarClick = { guardarEnFirebase(it) }

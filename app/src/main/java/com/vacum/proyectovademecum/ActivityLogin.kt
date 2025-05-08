@@ -75,6 +75,37 @@ class ActivityLogin : AppCompatActivity() {
             startActivity(Intent(this, ActivityRegister::class.java))
             finish() // Esto cerrará la pantalla de login
         }
+        val forgotPasswordText = findViewById<TextView>(R.id.forgotPasswordText)
+
+        forgotPasswordText.setOnClickListener {
+            val editText = EditText(this)
+            editText.hint = "Escribe tu correo"
+            editText.inputType = android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+
+            val dialog = android.app.AlertDialog.Builder(this)
+                .setTitle("Recuperar contraseña")
+                .setMessage("Ingresa tu correo para enviar un enlace de recuperación")
+                .setView(editText)
+                .setPositiveButton("Enviar") { _, _ ->
+                    val email = editText.text.toString().trim()
+                    if (email.isNotEmpty()) {
+                        FirebaseAuth.getInstance().sendPasswordResetEmail(email)
+                            .addOnSuccessListener {
+                                Toast.makeText(this, "Se envió un enlace a $email", Toast.LENGTH_LONG).show()
+                            }
+                            .addOnFailureListener { e ->
+                                Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                            }
+                    } else {
+                        Toast.makeText(this, "Por favor, escribe tu correo", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .setNegativeButton("Cancelar", null)
+                .create()
+
+            dialog.show()
+        }
+
 
     }
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -60,8 +61,8 @@
                         <!-- Slider azul ahora sobre "Registro" -->
                         <View
                             android:id="@+id/slider"
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
+                            android:layout_width="129dp"
+                            android:layout_height="34dp"
                             android:background="@drawable/slider_tab"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -72,8 +73,8 @@
                         <!-- Botón Inicio de sesión -->
                         <TextView
                             android:id="@+id/btnLogin"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
+                            android:layout_width="117dp"
+                            android:layout_height="36dp"
                             android:gravity="center"
                             android:text="@string/inicio_sesion"
                             android:textColor="@android:color/white"
@@ -88,8 +89,8 @@
                         <!-- Botón Registro -->
                         <TextView
                             android:id="@+id/btnRegister"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
+                            android:layout_width="127dp"
+                            android:layout_height="39dp"
                             android:gravity="center"
                             android:text="@string/registro"
                             android:textColor="@android:color/white"

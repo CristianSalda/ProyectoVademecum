@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MedicamentoAgr">
+    tools:context=".MedicamentosGuardadosActivity">
 
     <ImageView
         android:id="@+id/imageView6"
@@ -48,6 +48,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/headerBox"
         android:layout_width="match_parent"
@@ -57,8 +58,8 @@
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:padding="12dp"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="105dp">
+        app:layout_constraintTop_toBottomOf="@+id/toolbarTitle"
+        tools:layout_editor_absoluteX="16dp">
 
         <TextView
             android:id="@+id/titleText"
@@ -92,8 +93,10 @@
         android:background="@drawable/rounded_super_light_blue"
         android:orientation="vertical"
         android:padding="16dp"
-        tools:layout_editor_absoluteX="17dp"
-        tools:layout_editor_absoluteY="153dp">>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/headerBox">
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/perfilLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fondo"
+        android:padding="0dp">
+
+        <!-- Encabezado visual -->
+        <ImageView
+            android:id="@+id/encabezado"
+            android:layout_width="280dp"
+            android:layout_height="34dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/vademecum_encabezado" />
+
+        <ImageView
+            android:id="@+id/atras"
+            android:layout_width="53dp"
+            android:layout_height="34dp"
+            app:layout_constraintBottom_toTopOf="@+id/tituloperfil"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/imgatras" />
+
+        <!-- Título azul -->
+        <TextView
+            android:id="@+id/tituloperfil"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:background="#007AC1"
+            android:gravity="center"
+            android:text="@string/perfil"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Información del usuario -->
+
+        <!-- Botón cerrar sesión -->
+
+        <!-- Botón configurar cuenta -->
+
+        <ImageView
+            android:id="@+id/fotoPerfil"
+            android:layout_width="157dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="24dp"
+            android:src="@drawable/cuenta"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tituloperfil" />
+
+        <TextView
+            android:id="@+id/AgregarFotoPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="@string/foto_de_perfil"
+            android:textSize="16sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fotoPerfil" />
+
+        <TextView
+            android:id="@+id/infoUsuario"
+            android:layout_width="301dp"
+            android:layout_height="217dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="52dp"
+            android:layout_marginEnd="24dp"
+            android:text="@string/InfoUsuario"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:textStyle="bold|italic"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/AgregarFotoPerfil" />
+
+        <Button
+            android:id="@+id/btnCerrarSesion"
+            android:layout_width="295dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="48dp"
+            android:backgroundTint="#00B4D8"
+            android:text="@string/cerrar_sesi_n"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/infoUsuario" />
+
+        <Button
+            android:id="@+id/btnConfigurarCuenta"
+            android:layout_width="295dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="#00B4D8"
+            android:text="@string/configurar_cuenta"
+            android:textColor="@android:color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnCerrarSesion" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

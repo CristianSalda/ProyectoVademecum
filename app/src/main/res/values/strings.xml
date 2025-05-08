@@ -46,4 +46,23 @@
     <string name="subtitulofav">Aqui encontraras los medicamentos guardados</string>
     <string name="logo">logoimage\n</string>
     <string name="regresar">boton regresar\n</string>
+    <string name="cerrar_sesion">Btn Cierre de sesion</string>
+    <string name="perfil">Perfil</string>
+    <string name="cambio_de_nombre_de_usuario">Cambio de nombre de usuario</string>
+    <string name="InfoUsuario">Nombre\n\nApellidos\n\nFecha nacimiento (YYYY-MM-DD)\n\nTipo de persona\n\nDescripción de perfil</string>
+    <string name="configurar_cuenta">Configurar cuenta</string>
+    <string name="cerrar_sesi_n">Cerrar Sesión</string>
+    <string name="agregar_foto_de_perfil">Cambiar Foto de Perfil</string>
+    <string name="nombre_c">Nombre</string>
+    <string name="apellidos_c">Apellidos</string>
+    <string name="fecha_nacimiento_yyyy_mm_dd_c">Fecha nacimiento (YYYY-MM-DD)</string>
+    <string name="cambio_de_email_c">Cambio de email</string>
+    <string name="cambio_de_nombre_de_usuario_c">Cambio de nombre de usuario</string>
+    <string name="cambio_tipo_de_persona_C">Cambio Tipo de persona</string>
+    <string name="cambio_de_contraseña">Cambio de Contraseña</string>
+    <string name="agregar_una_descripci_n_de_perfil_c">Agregar una descripción de perfil</string>
+    <string name="eliminar_cuenta">Eliminar cuenta</string>
+    <string name="guardar_cambios">Guardar cambios</string>
+    <string name="foto_de_perfil">Foto de perfil</string>
+    <string name="ej_prueba_gmail_com">ej: prueba@gmail.com</string>
 </resources>

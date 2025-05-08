@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
             finish() // Esto cerrará la pantalla de login
         }
 
+
         btnEmergency.setOnClickListener {
             // Navegar a EmergencyActivity (aún por crear)
         }
