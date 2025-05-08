@@ -15,6 +15,12 @@
         android:theme="@style/Theme.ProyectoVademecum"
         tools:targetApi="31">
         <activity
+            android:name=".CuentaEliminadaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityEliminarCuenta"
+            android:exported="false" />
+        <activity
             android:name=".ActivityConfigurarPerfil"
             android:exported="false" />
         <activity

@@ -80,9 +80,9 @@ class ActivityConfigurarPerfil : AppCompatActivity() {
             guardarCambios()
         }
 
-        //btnEliminarCuenta.setOnClickListener {
-        //    startActivity(Intent(this, EliminarCuentaActivity::class.java))
-        //}
+        btnEliminarCuenta.setOnClickListener {
+           startActivity(Intent(this, ActivityEliminarCuenta::class.java))
+        }
 
         findViewById<ImageView>(R.id.atras).setOnClickListener {
             finish()

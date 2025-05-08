@@ -65,4 +65,10 @@
     <string name="guardar_cambios">Guardar cambios</string>
     <string name="foto_de_perfil">Foto de perfil</string>
     <string name="ej_prueba_gmail_com">ej: prueba@gmail.com</string>
+    <string name="eliminaci_n_de_cuenta">Eliminación de cuenta</string>
+    <string name="por_motivos_de_seguridad_se_requiere_que_ingrese_el_c_digo_de_verificaci_n_enviado_a_su_correo_electr_nico_para_validar_su_identidad_y_eliminar_la_cuenta_definitivamente">Por motivos de seguridad se requiere que ingrese el código de verificación enviado a su correo electrónico para validar su identidad y eliminar la cuenta definitivamente</string>
+    <string name="c_digo_de_verificaci_n_enviado">Código de verificación enviado</string>
+    <string name="reenviar_c_digo_de_verificaci_n">Reenviar código de verificación</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="volver_al_inicio">Volver al inicio</string>
 </resources>
