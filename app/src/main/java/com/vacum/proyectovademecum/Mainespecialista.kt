@@ -24,6 +24,13 @@ class Mainespecialista : AppCompatActivity() {
             finish()
         }
 
+        val configcuenta = findViewById<LinearLayout>(R.id.ConfigCuenta)
+
+        configcuenta.setOnClickListener {
+            val intent = Intent(this, ActivityConfigurarPerfil::class.java)
+            startActivity(intent)
+        }
+
         val searchBar = findViewById<LinearLayout>(R.id.searchBar)
 
         searchBar.setOnClickListener {

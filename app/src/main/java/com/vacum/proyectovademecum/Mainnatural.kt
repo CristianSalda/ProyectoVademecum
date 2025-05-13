@@ -34,6 +34,12 @@ class Mainnatural : AppCompatActivity() {
             val intent = Intent(this, Activity_guardados::class.java)
             startActivity(intent)
         }
+        val configcuenta = findViewById<LinearLayout>(R.id.ConfigCuenta)
+
+        configcuenta.setOnClickListener {
+            val intent = Intent(this, ActivityConfigurarPerfil::class.java)
+            startActivity(intent)
+        }
         val historialBtn = findViewById<LinearLayout>(R.id.itemHistorial)
         historialBtn.setOnClickListener {
             val intent = Intent(this, HistorialActivity::class.java)

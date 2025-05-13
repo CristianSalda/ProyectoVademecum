@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.firebase.storage)
     implementation(libs.imagepicker)
     implementation(libs.glide)
+    implementation(libs.firebase.functions)
 
 
 

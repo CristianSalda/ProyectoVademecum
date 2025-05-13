@@ -22,6 +22,7 @@ firebase_storage = "20.3.0"
 
 
 [libraries]
+firebase-functions = { module = "com.google.firebase:firebase-functions-ktx", version = "20.4.0" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-lifecycle-runtime-ktx-v262 = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtxVersion" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
