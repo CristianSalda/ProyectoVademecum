@@ -1,107 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:padding="16dp">
+    android:fillViewport="true"
+    android:background="#FFFFFF">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:background="#FFFFFF">
-
-        <!-- Botón de regreso -->
-        <ImageView
-            android:id="@+id/backButton"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:contentDescription="@string/regresar"
-            android:src="@drawable/imgatras" />
-
-        <!-- Logo centrado -->
-        <ImageView
-            android:id="@+id/logoImage"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_centerInParent="true"
-            android:contentDescription="@string/logo"
-            android:src="@drawable/logo_vademecum" />
-
-        <!-- Icono de Cuenta a la derecha -->
-        <ImageView
-            android:id="@+id/accountIcon"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:contentDescription="@string/cuenta"
-            android:src="@drawable/cuenta" />
-
-    </RelativeLayout>
-
-    <!-- Cuadro de búsqueda -->
     <LinearLayout
-        android:id="@+id/searchBar"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/search_background"
-        android:gravity="center_vertical"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp">
+        android:layout_height="wrap_content"
+        android:padding="16dp">
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:contentDescription="@string/b_squeda"
-            android:src="@android:drawable/ic_menu_search"
-            app:tint="#888888" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:background="#FFFFFF">
 
-        <EditText
-            android:id="@+id/searchInput"
-            android:layout_width="0dp"
+            <ImageView
+                android:id="@+id/backButton"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/regresar"
+                android:src="@drawable/imgatras" />
+
+            <ImageView
+                android:id="@+id/logoImage"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_centerInParent="true"
+                android:contentDescription="@string/logo"
+                android:src="@drawable/logo_vademecum" />
+
+            <ImageView
+                android:id="@+id/accountIcon"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/cuenta"
+                android:src="@drawable/cuenta" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/searchBar"
+            android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_weight="1"
-            android:autofillHints="Texto de busqueda de la barra"
-            android:background="@null"
-            android:hint="@string/b_squeda"
-            android:inputType="text"
-            android:paddingStart="8dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/search_background"
+            android:gravity="center_vertical"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
+
+            <EditText
+                android:id="@+id/searchInput"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:autofillHints=""
+                android:background="@null"
+                android:hint="@string/b_squeda"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:paddingStart="8dp"
+                android:textColor="#000000"
+                android:textColorHint="#888888"
+                tools:ignore="RtlSymmetry" />
+
+            <ImageView
+                android:id="@+id/btnSearch"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="8dp"
+                android:clickable="true"
+                android:contentDescription="@string/b_squeda"
+                android:focusable="true"
+                android:src="@android:drawable/ic_menu_search"
+                app:tint="#888888" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textViewResults"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:textColor="#000000"
-            android:textColorHint="#888888"
-            tools:ignore="RtlSymmetry" />
+            android:textSize="16sp"
+            tools:text="Aquí se mostrarán los resultados de la búsqueda" />
+
+        <!-- FloatingActionButton dentro del ScrollView (opcional, no ideal si querés que quede fijo) -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/btnGuardarFavorito"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:contentDescription="@string/guardar_medicamento"
+                android:src="@drawable/ic_bookmark"
+                app:backgroundTint="@color/teal_700"
+                app:tint="@android:color/holo_blue_light" />
+        </FrameLayout>
+
     </LinearLayout>
-    <TextView
-        android:id="@+id/textViewResults"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:textColor="#000000"
-        android:textSize="16sp"
-        tools:text="Aquí se mostrarán los resultados de la búsqueda" />
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnGuardarFavorito"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="Guardar medicamento"
-        android:src="@drawable/ic_bookmark"
-        android:layout_margin="16dp"
-        app:backgroundTint="@color/teal_700"
-        app:tint="@android:color/holo_blue_light"
-        app:layout_anchorGravity="bottom|end"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-    </FrameLayout>
-
-
-</LinearLayout>
+</ScrollView>

@@ -79,11 +79,15 @@
             android:autofillHints="Busqueda texto en la barra"
             android:background="@null"
             android:hint="@string/b_squeda"
-            android:inputType="text"
             android:paddingStart="8dp"
             android:textColor="#000000"
             android:textColorHint="#888888"
+            android:focusable="false"
+            android:cursorVisible="false"
+            android:inputType="none"
+            android:clickable="true"
             tools:ignore="RtlSymmetry" />
+
     </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
@@ -147,30 +151,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/preescripci_n"
-                    android:textSize="14sp"
-                    android:gravity="center"/>
-            </LinearLayout>
-
-            <!-- Opción 3: Calculadora dosis -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_columnWeight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:padding="16dp"
-                tools:ignore="UseCompoundDrawables">
-
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:contentDescription="@string/calculadora_dosis"
-                    android:src="@drawable/calculadora" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/calculadora_dosis"
                     android:textSize="14sp"
                     android:gravity="center"/>
             </LinearLayout>

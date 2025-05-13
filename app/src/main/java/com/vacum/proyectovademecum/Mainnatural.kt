@@ -2,6 +2,7 @@ package com.vacum.proyectovademecum
 import android.os.Bundle
 import android.content.Intent
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -22,8 +23,8 @@ class Mainnatural : AppCompatActivity() {
             finish()
         }
 
-        val searchBar = findViewById<LinearLayout>(R.id.searchBar)
-         searchBar.setOnClickListener {
+        val searchInput = findViewById<EditText>(R.id.searchInput)
+         searchInput.setOnClickListener {
             val intent = Intent(this, Mainbusqueda::class.java)
             startActivity(intent)
         }

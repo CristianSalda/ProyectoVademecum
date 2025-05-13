@@ -3,6 +3,7 @@ package com.vacum.proyectovademecum
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -48,12 +49,25 @@ class Mainbusqueda : AppCompatActivity() {
 
         api = retrofit.create(OpenFdaApi::class.java)
 
-        searchButton.setOnClickListener {
+        val searchIcon = findViewById<ImageView>(R.id.btnSearch)
+        searchIcon.setOnClickListener {
             val query = searchInput.text.toString().trim()
             if (query.isNotEmpty()) {
                 buscarMedicamento(query)
             }
         }
+        searchInput.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                val query = searchInput.text.toString().trim()
+                if (query.isNotEmpty()) {
+                    buscarMedicamento(query)
+                }
+                true
+            } else {
+                false
+            }
+        }
+
 
         // Configurar el botón de regreso
         val backButton = findViewById<ImageView>(R.id.backButton)
@@ -112,7 +126,7 @@ class Mainbusqueda : AppCompatActivity() {
                     ?.translatedText
                     ?: nombre
 
-                val response = api.getMedicamentos("openfda.substance_name:$nombreEnIngles", 1)
+                val response = api.getMedicamentos("openfda.substance_name:$nombreEnIngles", 10)
                 val medicamento = response.body()?.results?.firstOrNull()
 
                 if (response.isSuccessful && medicamento != null) {
