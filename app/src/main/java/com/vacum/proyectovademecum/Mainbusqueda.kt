@@ -17,6 +17,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class Mainbusqueda : AppCompatActivity() {
 
+
     val retrofitGoogle = Retrofit.Builder()
         .baseUrl("https://translation.googleapis.com/")
         .addConverterFactory(GsonConverterFactory.create())
