@@ -45,7 +45,7 @@
     <string name="medicamentos_guardados">Medicamentos guardados</string>
     <string name="subtitulofav">Aqui encontraras los medicamentos guardados</string>
     <string name="textoNoHayhistorial">No has visitado ningun medicamento</string>
-    <string name="introhistorial">Aqui encontraras el historial de medicmanetos</string>
+    <string name="introhistorial">Aqui encontraras el historial de medicamentos</string>
     <string name="eliminar_cuenta">Eliminar Cuenta</string>
     <string name="guardar_cambios">Guardar cambios</string>
     <string name="cambio_de_contraseña">Cambiar contraseña</string>
@@ -79,4 +79,6 @@
     <string name="guardar_prescripci_n">Guardar Prescripción</string>
     <string name="b_squeda2">Búsqueda...</string>
     <string name="nombre_de_la_orden">Nombre de la orden</string>
+    <string name="b_squeda_por_tipo_de_medicamento">Búsqueda por tipo de medicamento</string>
+    <string name="tipo_de_medicamento">Tipo de medicamento:</string>
 </resources>

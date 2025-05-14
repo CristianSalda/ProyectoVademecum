@@ -203,7 +203,6 @@ class Mainbusqueda : AppCompatActivity() {
 
         val historial = HistorialBusqueda(
             nombre = nombre,
-            usuarioId = userId,
             fecha = System.currentTimeMillis()
         )
 

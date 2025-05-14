@@ -37,7 +37,9 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.logging.interceptor)
+    implementation(libs.play.services.auth)
+    implementation(libs.google.firebase.firestore)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

@@ -5,8 +5,10 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.vacum.proyectovademecum.Mainespecialista
 
 class Mainnatural : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,9 +26,14 @@ class Mainnatural : AppCompatActivity() {
         }
 
         val searchInput = findViewById<EditText>(R.id.searchInput)
-         searchInput.setOnClickListener {
-            val intent = Intent(this, Mainbusqueda::class.java)
-            startActivity(intent)
+        searchInput.setOnClickListener {
+            try {
+                val intent = Intent(this@Mainnatural, Mainbusqueda::class.java)
+                intent.putExtra("query", searchInput.text.toString())
+                startActivity(intent)
+            } catch (e: Exception) {
+                Toast.makeText(this, "Error al iniciar búsqueda", Toast.LENGTH_SHORT).show()
+            }
         }
 
         val favoritos = findViewById<LinearLayout>(R.id.favoritos)
@@ -41,7 +48,6 @@ class Mainnatural : AppCompatActivity() {
             startActivity(intent)
         }
 
-
         val preescripcion = findViewById<ImageView>(R.id.imgPreescripcion)
         preescripcion.setOnClickListener {
             val intent = Intent(this, NuevaPree::class.java)
@@ -54,5 +60,13 @@ class Mainnatural : AppCompatActivity() {
             val intent = Intent(this, ActivityPerfil::class.java)
             startActivity(intent)
         }
+
+        val buscar_por_tipo = findViewById<LinearLayout>(R.id.busquedaPorTiposNatural)
+
+        buscar_por_tipo.setOnClickListener{
+            val intent = Intent(this, ActivityBuscarPorTipo::class.java)
+            startActivity(intent)
+        }
+
     }
 }
