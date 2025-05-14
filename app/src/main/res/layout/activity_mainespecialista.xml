@@ -157,11 +157,12 @@
 
             <!-- Opción 4: Búsqueda por tipos -->
             <LinearLayout
+                android:id="@+id/busquedaPorTipos"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:orientation="vertical"
                 android:gravity="center"
+                android:orientation="vertical"
                 android:padding="16dp"
                 tools:ignore="UseCompoundDrawables">
 
@@ -174,9 +175,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="@string/b_squeda_por_tipos"
-                    android:textSize="14sp"
-                    android:gravity="center"/>
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <!-- Opción 5: Historial -->
@@ -206,11 +207,12 @@
 
             <!-- Opción 6: Búsqueda por enfermedad -->
             <LinearLayout
+                android:id="@+id/busquedaPorEnfermedad"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"
-                android:orientation="vertical"
                 android:gravity="center"
+                android:orientation="vertical"
                 android:padding="16dp"
                 tools:ignore="UseCompoundDrawables">
 
@@ -223,9 +225,9 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:text="@string/por_enfermedad"
-                    android:textSize="14sp"
-                    android:gravity="center"/>
+                    android:textSize="14sp" />
             </LinearLayout>
 
             <!-- Opción 7: Reseñas -->

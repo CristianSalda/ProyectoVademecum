@@ -48,8 +48,9 @@ class Activity_guardados : AppCompatActivity() {
     private fun cargarMedicamentosFavoritos() {
         val userId = auth.currentUser?.uid ?: return
 
-        db.collection("medicamentos_favs")
-            .whereEqualTo("usuarioId", userId)
+        db.collection("usuarios")
+            .document(userId)
+            .collection("favoritos")
             .addSnapshotListener { snapshot, error ->
                 if (error != null || snapshot == null) return@addSnapshotListener
 
@@ -59,16 +60,22 @@ class Activity_guardados : AppCompatActivity() {
             }
     }
 
+
     private fun eliminarMedicamento(med: MedicamentoFavorito) {
         val userId = auth.currentUser?.uid ?: return
 
-        db.collection("medicamentos_favs")
-            .whereEqualTo("usuarioId", userId)
+        db.collection("usuarios")
+            .document(userId)
+            .collection("favoritos")
             .whereEqualTo("nombre", med.nombre)
             .get()
             .addOnSuccessListener { result ->
                 for (doc in result) {
-                    db.collection("medicamentos_favs").document(doc.id).delete()
+                    db.collection("usuarios")
+                        .document(userId)
+                        .collection("favoritos")
+                        .document(doc.id)
+                        .delete()
                 }
                 Toast.makeText(this, "Medicamento eliminado", Toast.LENGTH_SHORT).show()
             }
@@ -76,4 +83,5 @@ class Activity_guardados : AppCompatActivity() {
                 Toast.makeText(this, "Error al eliminar", Toast.LENGTH_SHORT).show()
             }
     }
+
 }

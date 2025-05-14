@@ -70,4 +70,8 @@
     <string name="cerrar_sesi_n">Cerrar sesión</string>
     <string name="perfil">Perfil</string>
     <string name="guardar_medicamento">Guardar Medicamento</string>
+    <string name="guardar_como_favorito">Guardar como favorito</string>
+    <string name="detalles_de_dosis">Detalles de dosis</string>
+    <string name="cantidad_de_la_proxima_toma">Cantidad de la proxima toma:</string>
+    <string name="tiempo_para_la_pr_xima_toma">Tiempo Para la próxima toma:</string>
 </resources>

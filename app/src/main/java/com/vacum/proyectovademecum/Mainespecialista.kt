@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 
@@ -34,8 +35,13 @@ class Mainespecialista : AppCompatActivity() {
 
         val searchInput = findViewById<EditText>(R.id.searchInput)
         searchInput.setOnClickListener {
-            val intent = Intent(this, Mainbusqueda::class.java)
-            startActivity(intent)
+            try {
+                val intent = Intent(this@Mainespecialista, Mainbusqueda::class.java)
+                intent.putExtra("query", searchInput.text.toString())
+                startActivity(intent)
+            } catch (e: Exception) {
+                Toast.makeText(this, "Error al iniciar búsqueda", Toast.LENGTH_SHORT).show()
+            }
         }
 
         val notas = findViewById<LinearLayout>(R.id.LinearLayoutNotas)
@@ -69,5 +75,20 @@ class Mainespecialista : AppCompatActivity() {
             val intent = Intent(this, ActivityPerfil::class.java)
             startActivity(intent)
         }
+
+        val buscar_por_tipo = findViewById<LinearLayout>(R.id.busquedaPorTipos)
+
+        buscar_por_tipo.setOnClickListener{
+            val intent = Intent(this, ActivityBuscarPorTipo::class.java)
+            startActivity(intent)
+        }
+
+        val buscar_por_enfermedad = findViewById<LinearLayout>(R.id.busquedaPorEnfermedad)
+
+        buscar_por_tipo.setOnClickListener{
+            val intent = Intent(this, ActivityBuscarPorEnfermedad::class.java)
+            startActivity(intent)
+        }
+
     }
 }

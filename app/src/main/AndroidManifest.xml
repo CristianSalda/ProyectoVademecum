@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,6 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoVademecum"
         tools:targetApi="31">
+        <activity
+            android:name=".ActivityBuscarPorTipo"
+            android:exported="false" />
+        <activity
+            android:name=".FullScreenMedicamentoActivity"
+            android:exported="false" />
         <activity
             android:name=".CuentaEliminadaActivity"
             android:exported="false" />
@@ -52,9 +60,6 @@
             android:exported="false"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.ProyectoVademecum" />
-        <activity
-            android:name=".PreescripcionGRD"
-            android:exported="false" />
         <activity
             android:name=".OpcionesporMed"
             android:exported="true" />

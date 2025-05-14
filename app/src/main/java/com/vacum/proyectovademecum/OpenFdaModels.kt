@@ -3,7 +3,8 @@ package com.vacum.proyectovademecum
 
 data class OpenFdaResponse(val results: List<Medicamento>)
 
-    data class Medicamento(
+
+    data class Medicamento (
         val openfda: OpenFdaInfo?,
         val purpose: List<String>?,
         val indications_and_usage: List<String>?,
