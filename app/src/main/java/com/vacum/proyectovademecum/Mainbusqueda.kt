@@ -10,8 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.launch
@@ -171,7 +169,7 @@ class Mainbusqueda : AppCompatActivity() {
                         val traduccionEsp = traductorApi.traducirTexto(
                             texto = textoOriginal,
                             idiomaDestino = "es",
-                            apiKey = "TU_API_KEY_GOOGLE"
+                            apiKey = "AIzaSyBflXNFxBkYxK10GmF6m1j-gvKi0mmuCEk"
                         )
 
                         resultText.text = if (traduccionEsp.isSuccessful) {
@@ -200,42 +198,13 @@ class Mainbusqueda : AppCompatActivity() {
         }
     }
 
-    private fun guardarFavorito() {
-        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: run {
-            Toast.makeText(this, "Debes iniciar sesión", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        val nombre = searchInput.text.toString().trim()
-        val descripcion = resultText.text.toString().trim()
-
-        if (nombre.isEmpty() || descripcion.isEmpty()) {
-            Toast.makeText(this, "No hay datos para guardar", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        val favorito = MedicamentoFavorito(nombre, descripcion, userId)
-
-        FirebaseFirestore.getInstance()
-            .collection("usuarios")
-            .document(userId)
-            .collection("favoritos")
-            .add(favorito)
-            .addOnSuccessListener {
-                Toast.makeText(this, "Medicamento guardado", Toast.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener {
-                Toast.makeText(this, "Error al guardar", Toast.LENGTH_SHORT).show()
-            }
-    }
-
     private fun guardarEnHistorial(nombre: String) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
 
         val historial = HistorialBusqueda(
             nombre = nombre,
             usuarioId = userId,
-            fecha = Timestamp.now()
+            fecha = System.currentTimeMillis()
         )
 
         FirebaseFirestore.getInstance()

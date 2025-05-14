@@ -34,8 +34,10 @@ class HistorialActivity : AppCompatActivity() {
 
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
 
-        FirebaseFirestore.getInstance().collection("historial_busquedas")
-            .whereEqualTo("usuarioId", userId)
+        FirebaseFirestore.getInstance()
+            .collection("usuarios")
+            .document(userId)
+            .collection("historial") // Corregido: la subcolección es "historial"
             .orderBy("fecha", Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { snapshot ->
@@ -46,6 +48,5 @@ class HistorialActivity : AppCompatActivity() {
             .addOnFailureListener {
                 Toast.makeText(this, "Error al cargar historial", Toast.LENGTH_SHORT).show()
             }
-
     }
 }

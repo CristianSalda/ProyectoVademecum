@@ -2,7 +2,6 @@ package com.vacum.proyectovademecum
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -26,12 +25,6 @@ class Mainespecialista : AppCompatActivity() {
             finish()
         }
 
-        val searchBar = findViewById<LinearLayout>(R.id.searchBar)
-
-        searchBar.setOnClickListener {
-            val intent = Intent(this, Mainbusqueda::class.java)
-            startActivity(intent)
-        }
 
         val searchInput = findViewById<EditText>(R.id.searchInput)
         searchInput.setOnClickListener {
@@ -83,12 +76,7 @@ class Mainespecialista : AppCompatActivity() {
             startActivity(intent)
         }
 
-        val buscar_por_enfermedad = findViewById<LinearLayout>(R.id.busquedaPorEnfermedad)
 
-        buscar_por_tipo.setOnClickListener{
-            val intent = Intent(this, ActivityBuscarPorEnfermedad::class.java)
-            startActivity(intent)
-        }
 
     }
 }

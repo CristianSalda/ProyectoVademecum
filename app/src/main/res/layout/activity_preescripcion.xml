@@ -31,22 +31,21 @@
         app:layout_constraintHorizontal_bias="0.986"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.444"
-        />
+        app:layout_constraintVertical_bias="0.444" />
 
     <TextView
         android:id="@+id/toolbarTitle"
-        android:layout_width="414dp"
-        android:layout_height="27dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="52dp"
         android:background="#007AC1"
         android:gravity="center"
+        android:paddingVertical="8dp"
         android:text="Preescripción virtual - Recordatorios"
         android:textColor="#FFFFFF"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,14 +63,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarTitle">
 
-        <TextView
-            android:id="@+id/titleText"
+        <EditText
+            android:id="@+id/etNombreOrden"
             android:layout_width="310dp"
             android:layout_height="wrap_content"
-            android:text="Agregar titulo de la orden"
+            android:hint="@string/nombre_de_la_orden"
             android:textColor="#000000"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:inputType="text" />
     </LinearLayout>
 
     <ImageView
@@ -79,6 +79,8 @@
         android:layout_width="52dp"
         android:layout_height="31dp"
         android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toTopOf="@+id/toolbarTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -89,19 +91,16 @@
 
     <LinearLayout
         android:id="@+id/contenedorOrden"
-        android:layout_width="382dp"
-        android:layout_height="573dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_margin="16dp"
-        android:layout_weight="1"
         android:background="@drawable/rounded_super_light_blue"
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.551"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintTop_toBottomOf="@+id/headerBox">
 
         <EditText
             android:id="@+id/searchEditText"
@@ -110,13 +109,35 @@
             android:background="@drawable/rounded_search_box"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="8dp"
-            android:hint="Búsqueda..."
+            android:hint="@string/b_squeda2"
             android:inputType="text"
             android:padding="12dp"
             android:textColor="#000000"
             android:textColorHint="#999999" />
 
-        
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvResultadosBusqueda"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="1" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center" />
+
+        <Button
+            android:id="@+id/btnGuardar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/primaryColor"
+            android:text="@string/guardar_prescripci_n" />
 
     </LinearLayout>
 

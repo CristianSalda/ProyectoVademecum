@@ -1,24 +1,39 @@
 package com.vacum.proyectovademecum
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
+import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 class Preescripción : AppCompatActivity() {
 
-    // Interfaces para las APIs
     interface GoogleTranslateApi {
         @GET("language/translate/v2")
         suspend fun traducirTexto(
             @Query("q") texto: String,
             @Query("target") idiomaDestino: String,
             @Query("format") formato: String = "text",
-            @Query("key") apiKey: String
-        ): retrofit2.Response<TranslationResponse>
+            @Query("key") apiKey: String = NuevaPree.GOOGLE_TRANSLATE_API_KEY
+        ): retrofit2.Response<NuevaPree.TranslationResponse>
     }
 
     interface OpenFdaApi {
@@ -29,43 +44,27 @@ class Preescripción : AppCompatActivity() {
         ): retrofit2.Response<OpenFdaResponse>
     }
 
-    data class TranslationResponse(val data: TranslationData?)
-    data class TranslationData(val translations: List<Translation>?)
-    data class Translation(val translatedText: String?)
-
-    data class OpenFdaResponse(val results: List<Medicamento>?)
-
-    data class MedicamentoPrescrito(
-        val id: String,
-        val nombre: String,
-        var tiempoEntreDosis: Int, // en horas
-        var cantidadDosis: Int, // cantidad por toma
-        val detalles: String = ""
-    )
-
-    // Variables de clase
-    private lateinit var adapter: MedicamentoSeleccionadoAdapter
-    private lateinit var searchAdapter: BusquedaMedicamentoAdapter
-    private val medicamentosSeleccionados = mutableListOf<MedicamentoPrescrito>()
+    private lateinit var busquedaMedicamentoAdapter: BusquedaPrescripcionAdapter
     private lateinit var traductorApi: GoogleTranslateApi
     private lateinit var openFdaApi: OpenFdaApi
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_prescripcion_virtual)
+        setContentView(R.layout.activity_preescripcion)
 
-        // Configurar Retrofit para las APIs
-        val retrofitGoogle = Retrofit.Builder()
-            .baseUrl("https://translation.googleapis.com/")
+        progressBar = findViewById(R.id.progressBar)
+        traductorApi = Retrofit.Builder()
+            .baseUrl(NuevaPree.GOOGLE_TRANSLATE_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        traductorApi = retrofitGoogle.create(GoogleTranslateApi::class.java)
+            .create(GoogleTranslateApi::class.java)
 
-        val retrofitFda = Retrofit.Builder()
-            .baseUrl("https://api.fda.gov/")
+        openFdaApi = Retrofit.Builder()
+            .baseUrl(NuevaPree.OPEN_FDA_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        openFdaApi = retrofitFda.create(OpenFdaApi::class.java)
+            .create(OpenFdaApi::class.java)
 
         setupRecyclerViews()
         setupBusqueda()
@@ -73,34 +72,26 @@ class Preescripción : AppCompatActivity() {
     }
 
     private fun setupRecyclerViews() {
-        // Adaptador para medicamentos seleccionados (arriba)
-        adapter = MedicamentoSeleccionadoAdapter(medicamentosSeleccionados) { medicamento ->
-            mostrarDialogoConfiguracionDosis(medicamento)
-        }
-        findViewById<RecyclerView>(R.id.rvMedicamentosSeleccionados).apply {
-            layoutManager = LinearLayoutManager(this@PrescripcionVirtualActivity)
-            adapter = this@PrescripcionVirtualActivity.adapter
-        }
-
-        // Adaptador para resultados de búsqueda (abajo)
-        searchAdapter = BusquedaMedicamentoAdapter(emptyList()) { medicamento ->
-            agregarMedicamentoSeleccionado(medicamento)
-            findViewById<EditText>(R.id.etBusqueda).text.clear()
+        busquedaMedicamentoAdapter = BusquedaPrescripcionAdapter(emptyList()) { medicamento, cantidad, tiempoProximaToma ->
+            guardarPrescripcion(medicamento, cantidad, tiempoProximaToma)
         }
         findViewById<RecyclerView>(R.id.rvResultadosBusqueda).apply {
-            layoutManager = LinearLayoutManager(this@PrescripcionVirtualActivity)
-            adapter = searchAdapter
+            layoutManager = LinearLayoutManager(this@Preescripción)
+            adapter = busquedaMedicamentoAdapter
         }
     }
 
     private fun setupBusqueda() {
-        findViewById<EditText>(R.id.etBusqueda).apply {
+        findViewById<EditText>(R.id.searchEditText).apply {
             addTextChangedListener(object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
                     if (s.toString().length > 2) {
                         buscarMedicamentos(s.toString())
+                    } else {
+                        busquedaMedicamentoAdapter.updateList(emptyList())
                     }
                 }
+
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             })
@@ -117,11 +108,7 @@ class Preescripción : AppCompatActivity() {
     }
 
     private fun setupBotones() {
-        findViewById<Button>(R.id.btnGuardar).setOnClickListener {
-            guardarPrescripcionEnFirestore()
-        }
-
-        findViewById<ImageView>(R.id.btnBack).setOnClickListener {
+        findViewById<ImageView>(R.id.imageView8).setOnClickListener {
             finish()
         }
     }
@@ -129,143 +116,76 @@ class Preescripción : AppCompatActivity() {
     private fun buscarMedicamentos(query: String) {
         lifecycleScope.launch {
             try {
-                findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
+                progressBar.visibility = View.VISIBLE
 
-                // Traducir a inglés para la búsqueda en OpenFDA
                 val traduccion = traductorApi.traducirTexto(
                     texto = query,
-                    idiomaDestino = "en",
-                    apiKey = "TU_API_KEY_GOOGLE"
+                    idiomaDestino = "en"
                 )
 
-                val queryEnIngles = traduccion.body()?.data?.translations?.firstOrNull()?.translatedText ?: query
+                val queryEnIngles =
+                    traduccion.body()?.data?.translations?.firstOrNull()?.translatedText ?: query
 
-                // Buscar en OpenFDA
                 val response = openFdaApi.getMedicamentos("openfda.brand_name:$queryEnIngles")
 
                 if (response.isSuccessful && response.body()?.results != null) {
-                    val medicamentos = response.body()!!.results!!.mapNotNull { medicamento ->
-                        medicamento.openfda?.brand_name?.firstOrNull()?.let { nombre ->
-                            // Traducir detalles al español
-                            val detalles = buildString {
-                                medicamento.purpose?.firstOrNull()?.let {
-                                    append("Propósito: $it\n")
-                                }
-                                medicamento.indications_and_usage?.firstOrNull()?.let {
-                                    append("Indicaciones: $it\n")
-                                }
-                                medicamento.warnings?.firstOrNull()?.let {
-                                    append("Advertencias: $it\n")
-                                }
-                            }
-
-                            medicamento.copy(
-                                openfda = medicamento.openfda.copy(
-                                    brand_name = listOf(nombre)
-                                )
-                            )
-                        }
-                    }
-
-                    searchAdapter.updateList(medicamentos)
-
+                    val medicamentos = response.body()!!.results!!
+                    busquedaMedicamentoAdapter.updateList(medicamentos)
                 } else {
-                    Toast.makeText(this@PrescripcionVirtualActivity,
-                        "Error en la búsqueda", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@Preescripción,
+                        "Error en la búsqueda",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             } catch (e: Exception) {
                 Log.e("API_ERROR", "Error en buscarMedicamentos", e)
-                Toast.makeText(this@PrescripcionVirtualActivity,
-                    "Error de conexión", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@Preescripción, "Error de conexión", Toast.LENGTH_SHORT)
+                    .show()
             } finally {
-                findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
+                progressBar.visibility = View.GONE
             }
         }
     }
 
-    private fun agregarMedicamentoSeleccionado(medicamento: Medicamento) {
-        val nombre = medicamento.openfda?.brand_name?.firstOrNull() ?: "Medicamento desconocido"
+    private fun guardarPrescripcion(
+        medicamento: Medicamento,
+        cantidad: Int,
+        tiempoProximaToma: Int
+    ) {
+        val nombreOrdenEditText = findViewById<EditText>(R.id.etNombreOrden)
+        val nombreOrden = nombreOrdenEditText.text.toString().trim()
+        val nombreMedicamento = medicamento.openfda?.brand_name?.firstOrNull() ?: "Medicamento desconocido"
 
-        // Traducir detalles al español
-        lifecycleScope.launch {
-            try {
-                val detallesOriginal = buildString {
-                    medicamento.purpose?.firstOrNull()?.let {
-                        append("Purpose: $it\n")
-                    }
-                    medicamento.indications_and_usage?.firstOrNull()?.let {
-                        append("Indications: $it\n")
-                    }
-                }
-
-                val traduccion = traductorApi.traducirTexto(
-                    texto = detallesOriginal,
-                    idiomaDestino = "es",
-                    apiKey = "TU_API_KEY_GOOGLE"
-                )
-
-                val detallesEsp = traduccion.body()?.data?.translations?.firstOrNull()?.translatedText
-                    ?: detallesOriginal
-
-                val medicamentoPrescrito = MedicamentoPrescrito(
-                    id = nombre.hashCode().toString(),
-                    nombre = nombre,
-                    tiempoEntreDosis = 0,
-                    cantidadDosis = 0,
-                    detalles = detallesEsp
-                )
-
-                medicamentosSeleccionados.add(medicamentoPrescrito)
-                adapter.notifyItemInserted(medicamentosSeleccionados.size - 1)
-            } catch (e: Exception) {
-                Log.e("TRADUCCION", "Error al traducir detalles", e)
-            }
+        if (nombreOrden.isEmpty()) {
+            Toast.makeText(this, "Por favor, ingresa el nombre de la orden", Toast.LENGTH_SHORT).show()
+            return
         }
+
+        guardarPrescripcionEnFirestore(nombreOrden, nombreMedicamento, tiempoProximaToma, cantidad)
     }
 
-    private fun mostrarDialogoConfiguracionDosis(medicamento: MedicamentoPrescrito) {
-        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialogo_config_dosis, null)
-
-        dialogView.findViewById<EditText>(R.id.etTiempo).setText(medicamento.tiempoEntreDosis.toString())
-        dialogView.findViewById<EditText>(R.id.etCantidad).setText(medicamento.cantidadDosis.toString())
-
-        AlertDialog.Builder(this)
-            .setTitle("Configurar dosis para ${medicamento.nombre}")
-            .setView(dialogView)
-            .setPositiveButton("Guardar") { _, _ ->
-                val tiempo = dialogView.findViewById<EditText>(R.id.etTiempo).text.toString().toIntOrNull() ?: 0
-                val cantidad = dialogView.findViewById<EditText>(R.id.etCantidad).text.toString().toIntOrNull() ?: 0
-
-                medicamento.tiempoEntreDosis = tiempo
-                medicamento.cantidadDosis = cantidad
-                adapter.notifyDataSetChanged()
-
-                programarAlarma(medicamento)
-            }
-            .setNegativeButton("Cancelar", null)
-            .show()
-    }
-
-    private fun guardarPrescripcionEnFirestore() {
+    private fun guardarPrescripcionEnFirestore(
+        nombreOrden: String,
+        nombreMedicamento: String,
+        tiempoEntreDosis: Int,
+        cantidadDosis: Int
+    ) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: run {
             Toast.makeText(this, "Debes iniciar sesión", Toast.LENGTH_SHORT).show()
             return
         }
 
-        if (medicamentosSeleccionados.isEmpty()) {
-            Toast.makeText(this, "No hay medicamentos para guardar", Toast.LENGTH_SHORT).show()
-            return
-        }
+        val medicamentoPrescrito = hashMapOf(
+            "nombre" to nombreMedicamento,
+            "tiempoEntreDosis" to tiempoEntreDosis,
+            "cantidadDosis" to cantidadDosis,
+            "proximaToma" to System.currentTimeMillis() + tiempoEntreDosis * 60 * 60 * 1000L
+        )
 
         val prescripcionData = hashMapOf(
-            "medicamentos" to medicamentosSeleccionados.map {
-                hashMapOf(
-                    "nombre" to it.nombre,
-                    "tiempoEntreDosis" to it.tiempoEntreDosis,
-                    "cantidadDosis" to it.cantidadDosis,
-                    "detalles" to it.detalles
-                )
-            },
+            "nombreOrden" to nombreOrden,
+            "medicamentos" to listOf(medicamentoPrescrito),
             "fechaCreacion" to FieldValue.serverTimestamp(),
             "usuarioId" to userId
         )
@@ -277,34 +197,16 @@ class Preescripción : AppCompatActivity() {
             .add(prescripcionData)
             .addOnSuccessListener {
                 Toast.makeText(this, "Prescripción guardada", Toast.LENGTH_SHORT).show()
+                val resultIntent = Intent()
+                resultIntent.putExtra("nombreOrden", nombreOrden)
+                resultIntent.putExtra("nombreMedicamento", nombreMedicamento)
+                resultIntent.putExtra("tiempoEntreDosis", tiempoEntreDosis)
+                resultIntent.putExtra("cantidadDosis", cantidadDosis)
+                setResult(RESULT_OK, resultIntent)
                 finish()
             }
             .addOnFailureListener {
                 Toast.makeText(this, "Error al guardar", Toast.LENGTH_SHORT).show()
             }
-    }
-
-    private fun programarAlarma(medicamento: MedicamentoPrescrito) {
-        val intent = Intent(this, AlarmaReceiver::class.java).apply {
-            putExtra("medicamento_nombre", medicamento.nombre)
-            putExtra("cantidad_dosis", medicamento.cantidadDosis)
-        }
-
-        val pendingIntent = PendingIntent.getBroadcast(
-            this,
-            medicamento.hashCode(),
-            intent,
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-        )
-
-        val alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
-        val intervaloMillis = medicamento.tiempoEntreDosis * 60 * 60 * 1000L
-
-        alarmManager.setRepeating(
-            AlarmManager.RTC_WAKEUP,
-            System.currentTimeMillis() + intervaloMillis,
-            intervaloMillis,
-            pendingIntent
-        )
     }
 }

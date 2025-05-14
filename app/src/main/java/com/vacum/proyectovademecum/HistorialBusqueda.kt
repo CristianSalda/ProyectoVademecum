@@ -1,10 +1,8 @@
 package com.vacum.proyectovademecum
 
-import com.google.firebase.Timestamp
-
 
 data class HistorialBusqueda(
-    val fecha: Timestamp = Timestamp.now(),
+    val fecha: Long = 0,
     val nombre: String = "",
     val usuarioId: String = ""
 )
