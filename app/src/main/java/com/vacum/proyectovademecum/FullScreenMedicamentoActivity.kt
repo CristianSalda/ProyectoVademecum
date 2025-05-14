@@ -1,14 +1,26 @@
 package com.vacum.proyectovademecum
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class FullScreenMedicamentoActivity : AppCompatActivity() {
+
+    private lateinit var btnFavorito: ImageButton
+    private val firestore = FirebaseFirestore.getInstance()
+    private val userId = FirebaseAuth.getInstance().currentUser?.uid
+    private var medicamentoId: String? = null
+    private var isFavorito = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -19,7 +31,15 @@ class FullScreenMedicamentoActivity : AppCompatActivity() {
             insets
         }
 
+        btnFavorito = findViewById(R.id.btnFavorito)
+        medicamentoId = intent.getStringExtra("DRUG_ID") // Asegúrate de pasar el ID del medicamento
+
         mostrarDetallesEnPantalla()
+        verificarEstadoFavorito() // Verificar si ya es favorito al iniciar la actividad
+
+        btnFavorito.setOnClickListener {
+            toggleFavorito()
+        }
 
         val btnBack = findViewById<ImageView>(R.id.backButton)
         btnBack.setOnClickListener {
@@ -58,5 +78,70 @@ class FullScreenMedicamentoActivity : AppCompatActivity() {
         }
 
         tvDetalle.text = descripcion
+    }
+
+    private fun verificarEstadoFavorito() {
+        userId?.let { uid ->
+            medicamentoId?.let { drugId ->
+                firestore.collection("usuarios")
+                    .document(uid)
+                    .collection("favoritos")
+                    .document(drugId)
+                    .get()
+                    .addOnSuccessListener { document ->
+                        if (document.exists()) {
+                            isFavorito = true
+                            btnFavorito.setImageResource(R.drawable.bookmark_remove_24dp_007ac1_fill0_wght400_grad0_opsz24)
+                        } else {
+                            isFavorito = false
+                            btnFavorito.setImageResource(R.drawable.bookmark_24dp_007ac1_fill0_wght400_grad0_opsz24)
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("FullScreenMedicamento", "Error al verificar favorito: ", e)
+                        Toast.makeText(this, "Error al verificar favorito", Toast.LENGTH_SHORT).show()
+                    }
+            }
+        }
+    }
+
+    private fun toggleFavorito() {
+        userId?.let { uid ->
+            medicamentoId?.let { drugId ->
+                if (isFavorito) {
+                    // Eliminar de favoritos
+                    firestore.collection("usuarios")
+                        .document(uid)
+                        .collection("favoritos")
+                        .document(drugId)
+                        .delete()
+                        .addOnSuccessListener {
+                            isFavorito = false
+                            btnFavorito.setImageResource(R.drawable.bookmark_24dp_007ac1_fill0_wght400_grad0_opsz24)
+                            Toast.makeText(this, "Eliminado de favoritos", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("FullScreenMedicamento", "Error al eliminar de favoritos: ", e)
+                            Toast.makeText(this, "Error al eliminar de favoritos", Toast.LENGTH_SHORT).show()
+                        }
+                } else {
+                    val favorito = hashMapOf("drugId" to drugId)
+                    firestore.collection("usuarios")
+                        .document(uid)
+                        .collection("favoritos")
+                        .document(drugId)
+                        .set(favorito)
+                        .addOnSuccessListener {
+                            isFavorito = true
+                            btnFavorito.setImageResource(R.drawable.bookmark_remove_24dp_007ac1_fill0_wght400_grad0_opsz24)
+                            Toast.makeText(this, "Guardado en favoritos", Toast.LENGTH_SHORT).show()
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("FullScreenMedicamento", "Error al guardar en favoritos: ", e)
+                            Toast.makeText(this, "Error al guardar en favoritos", Toast.LENGTH_SHORT).show()
+                        }
+                }
+            }
+        }
     }
 }
