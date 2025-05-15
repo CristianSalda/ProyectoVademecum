@@ -105,4 +105,16 @@
     <string name="cerrar_resultados">Cerrar Resultados</string>
     <string name="estado_de_las_rese_as">Estado de las reseñas</string>
     <string name="rese_as__">Reseñas</string>
+    <string name="guardar_medicamento">Guardar Medicamento</string>
+    <string name="guardar_como_favorito">Guardar como favorito</string>
+    <string name="detalles_de_dosis">Detalles de dosis</string>
+    <string name="cantidad_de_la_proxima_toma">Cantidad de la proxima toma:</string>
+    <string name="tiempo_para_la_pr_xima_toma">Tiempo Para la próxima toma:</string>
+    <string name="agregar">agregar</string>
+    <string name="agregar_a_orden">Agregar a Orden</string>
+    <string name="guardar_prescripci_n">Guardar Prescripción</string>
+    <string name="b_squeda2">Búsqueda...</string>
+    <string name="nombre_de_la_orden">Nombre de la orden</string>
+    <string name="b_squeda_por_tipo_de_medicamento">Búsqueda por tipo de medicamento</string>
+    <string name="tipo_de_medicamento">Tipo de medicamento:</string>
 </resources>

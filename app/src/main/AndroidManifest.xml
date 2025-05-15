@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoVademecum"
         tools:targetApi="31">
+        <activity
+            android:name=".FullScreenBuscarPorTipoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityBuscarPorTipo"
+            android:exported="false" />
+        <activity
+            android:name=".FullScreenMedicamentoActivity"
+            android:exported="false" />
         <activity
             android:name=".FormularioEditarResenaActivity"
             android:exported="false" />
