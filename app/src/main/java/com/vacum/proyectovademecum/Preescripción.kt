@@ -197,12 +197,6 @@ class Preescripción : AppCompatActivity() {
             .add(prescripcionData)
             .addOnSuccessListener {
                 Toast.makeText(this, "Prescripción guardada", Toast.LENGTH_SHORT).show()
-                val resultIntent = Intent()
-                resultIntent.putExtra("nombreOrden", nombreOrden)
-                resultIntent.putExtra("nombreMedicamento", nombreMedicamento)
-                resultIntent.putExtra("tiempoEntreDosis", tiempoEntreDosis)
-                resultIntent.putExtra("cantidadDosis", cantidadDosis)
-                setResult(RESULT_OK, resultIntent)
                 finish()
             }
             .addOnFailureListener {

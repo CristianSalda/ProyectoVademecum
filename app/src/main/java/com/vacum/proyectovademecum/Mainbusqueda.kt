@@ -49,8 +49,8 @@ class Mainbusqueda : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var traductorApi: GoogleTranslateApi
     private lateinit var openFdaApi: OpenFdaApi
-    private lateinit var resultText: TextView
     private var primerMedicamentoMostrado: Medicamento? = null
+    private val googleTranslateApiKey = "AIzaSyBflXNFxBkYxK10GmF6m1j-gvKi0mmuCEk"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,13 +70,12 @@ class Mainbusqueda : AppCompatActivity() {
 
         searchInput = findViewById(R.id.searchInput)
         recyclerView = findViewById(R.id.recyclerView)
-        resultText = findViewById(R.id.textViewResults)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: ""
         adapter = MainBusquedaAdapter(emptyList(), { medicamento ->
             showFullScreenMedicamento(medicamento)
-        }, userId)
+        }, userId, googleTranslateApiKey)
 
         recyclerView.adapter = adapter
 
@@ -104,7 +103,6 @@ class Mainbusqueda : AppCompatActivity() {
         }
 
         findViewById<ImageView>(R.id.backButton).setOnClickListener { finish() }
-
     }
 
     private fun performSearch() {
@@ -121,13 +119,13 @@ class Mainbusqueda : AppCompatActivity() {
             try {
                 findViewById<ProgressBar>(R.id.progressBar).visibility = View.VISIBLE
 
-                val traduccion = traductorApi.traducirTexto(
+                val traduccionNombre = traductorApi.traducirTexto(
                     texto = nombre,
                     idiomaDestino = "en",
-                    apiKey = "AIzaSyBflXNFxBkYxK10GmF6m1j-gvKi0mmuCEk"
+                    apiKey = googleTranslateApiKey
                 )
 
-                val nombreEnIngles = traduccion.body()?.data?.translations?.firstOrNull()?.translatedText ?: nombre
+                val nombreEnIngles = traduccionNombre.body()?.data?.translations?.firstOrNull()?.translatedText ?: nombre
 
                 val response = openFdaApi.getMedicamentos("openfda.substance_name:$nombreEnIngles", 10)
 
@@ -148,49 +146,17 @@ class Mainbusqueda : AppCompatActivity() {
 
                     adapter.updateList(medicamentos)
 
-                    if (medicamentos.isNotEmpty()) {
-                        primerMedicamentoMostrado = medicamentos.first()
-
-                        val textoOriginal = buildString {
-                            medicamentos.first().openfda?.brand_name?.firstOrNull()?.let {
-                                append("Brand: $it\n")
-                            }
-                            medicamentos.first().openfda?.manufacturer_name?.firstOrNull()?.let {
-                                append("Manufacturer: $it\n")
-                            }
-                            medicamentos.first().purpose?.firstOrNull()?.let {
-                                append("Purpose: $it\n")
-                            }
-                            medicamentos.first().indications_and_usage?.firstOrNull()?.let {
-                                append("Usage: $it\n")
-                            }
-                        }
-
-                        val traduccionEsp = traductorApi.traducirTexto(
-                            texto = textoOriginal,
-                            idiomaDestino = "es",
-                            apiKey = "AIzaSyBflXNFxBkYxK10GmF6m1j-gvKi0mmuCEk"
-                        )
-
-                        resultText.text = if (traduccionEsp.isSuccessful) {
-                            traduccionEsp.body()?.data?.translations?.firstOrNull()?.translatedText ?: textoOriginal
-                        } else {
-                            textoOriginal
-                        }
-                    } else {
-                        resultText.text = "No se encontraron resultados para '$nombre'"
+                    if (medicamentos.isEmpty()) {
                         Toast.makeText(this@Mainbusqueda, "No se encontraron resultados", Toast.LENGTH_SHORT).show()
                     }
 
                     guardarEnHistorial(nombre)
 
                 } else {
-                    resultText.text = "Error en la búsqueda"
                     Toast.makeText(this@Mainbusqueda, "Error en la búsqueda", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 Log.e("API_ERROR", "Error en buscarMedicamento", e)
-                resultText.text = "Error de conexión: ${e.message}"
                 Toast.makeText(this@Mainbusqueda, "Error de conexión", Toast.LENGTH_SHORT).show()
             } finally {
                 findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
@@ -217,32 +183,115 @@ class Mainbusqueda : AppCompatActivity() {
     }
 
     private fun showFullScreenMedicamento(medicamento: Medicamento) {
-        val intent = Intent(this, FullScreenMedicamentoActivity::class.java).apply {
-            medicamento.openfda?.brand_name?.firstOrNull()?.let {
-                putExtra("BRAND_NAME", it)
-            }
-            medicamento.openfda?.manufacturer_name?.firstOrNull()?.let {
-                putExtra("MANUFACTURER", it)
-            }
-            medicamento.purpose?.firstOrNull()?.let {
-                putExtra("PURPOSE", it)
-            }
-            medicamento.indications_and_usage?.firstOrNull()?.let {
-                putExtra("INDICATIONS", it)
-            }
-            medicamento.warnings?.firstOrNull()?.let {
-                putExtra("WARNINGS", it)
-            }
-            medicamento.when_using?.firstOrNull()?.let {
-                putExtra("WHEN_USING", it)
-            }
-            medicamento.ask_a_doctor?.firstOrNull()?.let {
-                putExtra("ASK_DOCTOR", it)
-            }
-            medicamento.stop_use?.firstOrNull()?.let {
-                putExtra("STOP_USE", it)
+        lifecycleScope.launch {
+            try {
+                val brandName = medicamento.openfda?.brand_name?.firstOrNull() ?: ""
+
+                val textoParaTraducir = buildString {
+                    medicamento.openfda?.manufacturer_name?.firstOrNull()?.let {
+                        append("Manufacturer: $it\n\n")
+                    }
+                    medicamento.purpose?.firstOrNull()?.let {
+                        append("Purpose: $it\n\n")
+                    }
+                    medicamento.indications_and_usage?.firstOrNull()?.let {
+                        append("Usage: $it\n\n")
+                    }
+                    medicamento.warnings?.firstOrNull()?.let {
+                        append("Warnings: $it\n\n")
+                    }
+                    medicamento.when_using?.firstOrNull()?.let {
+                        append("When using: $it\n\n")
+                    }
+                    medicamento.ask_a_doctor?.firstOrNull()?.let {
+                        append("Ask doctor: $it\n\n")
+                    }
+                    medicamento.stop_use?.firstOrNull()?.let {
+                        append("Stop use: $it")
+                    }
+                }
+
+                val traduccionEsp = if (textoParaTraducir.isNotEmpty()) {
+                    traductorApi.traducirTexto(
+                        texto = textoParaTraducir,
+                        idiomaDestino = "es",
+                        apiKey = googleTranslateApiKey
+                    )
+                } else {
+                    null
+                }
+
+                val intent = Intent(this@Mainbusqueda, FullScreenMedicamentoActivity::class.java).apply {
+                    putExtra("BRAND_NAME", brandName)
+
+                    if (traduccionEsp?.isSuccessful == true) {
+                        val textoTraducido = traduccionEsp.body()?.data?.translations?.firstOrNull()?.translatedText ?: ""
+                        val partes = textoTraducido.split("\n\n")
+
+                        if (partes.isNotEmpty()) putExtra("MANUFACTURER", partes[0].removePrefix("Fabricante: "))
+                        if (partes.size > 1) putExtra("PURPOSE", partes[1].removePrefix("Propósito: "))
+                        if (partes.size > 2) putExtra("INDICATIONS", partes[2].removePrefix("Uso: "))
+                        if (partes.size > 3) putExtra("WARNINGS", partes[3].removePrefix("Advertencias: "))
+                        if (partes.size > 4) putExtra("WHEN_USING", partes[4].removePrefix("Cuando se usa: "))
+                        if (partes.size > 5) putExtra("ASK_DOCTOR", partes[5].removePrefix("Pregunte a un médico: "))
+                        if (partes.size > 6) putExtra("STOP_USE", partes[6].removePrefix("Deje de usar: "))
+                    } else {
+                        medicamento.openfda?.manufacturer_name?.firstOrNull()?.let {
+                            putExtra("MANUFACTURER", it)
+                        }
+                        medicamento.purpose?.firstOrNull()?.let {
+                            putExtra("PURPOSE", it)
+                        }
+                        medicamento.indications_and_usage?.firstOrNull()?.let {
+                            putExtra("INDICATIONS", it)
+                        }
+                        medicamento.warnings?.firstOrNull()?.let {
+                            putExtra("WARNINGS", it)
+                        }
+                        medicamento.when_using?.firstOrNull()?.let {
+                            putExtra("WHEN_USING", it)
+                        }
+                        medicamento.ask_a_doctor?.firstOrNull()?.let {
+                            putExtra("ASK_DOCTOR", it)
+                        }
+                        medicamento.stop_use?.firstOrNull()?.let {
+                            putExtra("STOP_USE", it)
+                        }
+                    }
+                }
+                startActivity(intent)
+
+            } catch (e: Exception) {
+                Log.e("TRADUCCION_ERROR", "Error al traducir para pantalla completa", e)
+
+                val intent = Intent(this@Mainbusqueda, FullScreenMedicamentoActivity::class.java).apply {
+                    medicamento.openfda?.brand_name?.firstOrNull()?.let {
+                        putExtra("BRAND_NAME", it)
+                    }
+                    medicamento.openfda?.manufacturer_name?.firstOrNull()?.let {
+                        putExtra("MANUFACTURER", it)
+                    }
+                    medicamento.purpose?.firstOrNull()?.let {
+                        putExtra("PURPOSE", it)
+                    }
+                    medicamento.indications_and_usage?.firstOrNull()?.let {
+                        putExtra("INDICATIONS", it)
+                    }
+                    medicamento.warnings?.firstOrNull()?.let {
+                        putExtra("WARNINGS", it)
+                    }
+                    medicamento.when_using?.firstOrNull()?.let {
+                        putExtra("WHEN_USING", it)
+                    }
+                    medicamento.ask_a_doctor?.firstOrNull()?.let {
+                        putExtra("ASK_DOCTOR", it)
+                    }
+                    medicamento.stop_use?.firstOrNull()?.let {
+                        putExtra("STOP_USE", it)
+                    }
+                }
+                startActivity(intent)
             }
         }
-        startActivity(intent)
     }
 }
