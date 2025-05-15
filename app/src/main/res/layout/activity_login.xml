@@ -143,16 +143,16 @@
 
                 <FrameLayout
                     android:id="@+id/segmentedControl"
-                    android:layout_width="300dp"
+                    android:layout_width="0dp"
                     android:layout_height="55dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
                     android:background="@drawable/segmented_background"
                     android:padding="4dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.492"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintEnd_toEndOf="parent">
 
-                    <!-- ConstraintLayout para control dinámico -->
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
@@ -161,13 +161,12 @@
                         <View
                             android:id="@+id/slider"
                             android:layout_width="0dp"
-                            android:layout_height="0dp"
+                            android:layout_height="34dp"
                             android:background="@drawable/slider_tab"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/btnRegister"
-                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintWidth_percent="0.5" />
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="@id/btnLogin"
+                            app:layout_constraintEnd_toEndOf="@id/btnLogin" />
 
                         <!-- Botón Inicio de sesión -->
                         <TextView
@@ -179,10 +178,10 @@
                             android:textColor="@android:color/white"
                             android:textSize="16sp"
                             android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/btnRegister"
-                            app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/btnRegister"
                             app:layout_constraintWidth_percent="0.5" />
 
                         <!-- Botón Registro -->
@@ -195,10 +194,10 @@
                             android:textColor="@android:color/white"
                             android:textSize="16sp"
                             android:textStyle="bold"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/btnLogin"
                             app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/btnLogin"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintWidth_percent="0.5" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

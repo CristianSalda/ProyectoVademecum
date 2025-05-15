@@ -41,7 +41,7 @@
             android:layout_marginTop="36dp"
             android:background="#007AC1"
             android:gravity="center"
-            android:text="@string/ConfigCuent"
+            android:text="@string/rese_as__"
             android:textColor="#FFFFFF"
             android:textSize="16sp"
             android:textStyle="bold"

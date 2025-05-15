@@ -12,15 +12,6 @@ class Mainnatural : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_natural)
 
-        val logoutButton = findViewById<ImageView>(R.id.btnLogout)
-
-        logoutButton.setOnClickListener {
-            FirebaseAuth.getInstance().signOut()
-            val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-            finish()
-        }
 
         val searchBar = findViewById<LinearLayout>(R.id.searchBar)
          searchBar.setOnClickListener {

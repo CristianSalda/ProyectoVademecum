@@ -73,55 +73,54 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/fotoPerfil" />
 
-        <!-- Campos no editables -->
 
-        <TextView
-            android:id="@+id/tvNombre"
+
+        <!-- Después -->
+        <EditText
+            android:id="@+id/etNombre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
-            android:text="@string/nombre_c"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:autofillHints="Nombre"
+            android:text="@string/nombre"
+            android:textColor="#888888"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/agregarFotoText" />
+            app:layout_constraintTop_toBottomOf="@id/agregarFotoText"/>
 
-        <TextView
-            android:id="@+id/tvApellido"
+        <EditText
+            android:id="@+id/etApellido"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
-            android:text="@string/apellidos_c"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:autofillHints="Apellido"
+            android:text="@string/apellido"
+            android:textColor="#888888"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvNombre" />
+            app:layout_constraintTop_toBottomOf="@id/etNombre" />
 
-        <!-- Campos editables como links -->
-        <TextView
-            android:id="@+id/tvFechaNacimiento"
+        <EditText
+            android:id="@+id/etFechaNacimiento"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="24dp"
-            android:text="@string/fecha_nacimiento_yyyy_mm_dd_c"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:autofillHints="Fecha nacimiento"
+            android:text="@string/fecha_de_nacimiento"
+            android:textColor="#888888"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvApellido" />
+            app:layout_constraintTop_toBottomOf="@id/etApellido" />
+
 
 
         <EditText
@@ -137,7 +136,7 @@
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvFechaNacimiento" />
+            app:layout_constraintTop_toBottomOf="@id/etFechaNacimiento" />
 
         <AutoCompleteTextView
             android:id="@+id/etTipoPersona"

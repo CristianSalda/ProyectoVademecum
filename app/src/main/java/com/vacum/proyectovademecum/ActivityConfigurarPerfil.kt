@@ -1,5 +1,6 @@
 package com.vacum.proyectovademecum
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -9,12 +10,14 @@ import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import java.util.Calendar
 
 class ActivityConfigurarPerfil : AppCompatActivity() {
 
-    private lateinit var tvNombre: TextView
-    private lateinit var tvApellido: TextView
-    private lateinit var tvFechaNacimiento: TextView
+    private lateinit var etNombre: EditText
+    private lateinit var etApellido: EditText
+    private lateinit var etFechaNacimiento: EditText
+
     private lateinit var etUsername: EditText
     private lateinit var etTipoPersona: AutoCompleteTextView
     private lateinit var etDescripcion: EditText
@@ -34,14 +37,27 @@ class ActivityConfigurarPerfil : AppCompatActivity() {
         setContentView(R.layout.activity_configurar_perfil)
 
         // Referencias
-        tvNombre = findViewById(R.id.tvNombre)
-        tvApellido = findViewById(R.id.tvApellido)
-        tvFechaNacimiento = findViewById(R.id.tvFechaNacimiento)
+        etNombre = findViewById(R.id.etNombre)
+        etApellido = findViewById(R.id.etApellido)
+        etFechaNacimiento = findViewById(R.id.etFechaNacimiento)
         etUsername = findViewById(R.id.etUsername)
         etTipoPersona = findViewById(R.id.etTipoPersona)
         etDescripcion = findViewById(R.id.etDescripcion)
         btnGuardarCambios = findViewById(R.id.btnGuardarCambios)
         btnEliminarCuenta = findViewById(R.id.btnEliminarCuenta)
+        etFechaNacimiento.setOnClickListener {
+            val c = Calendar.getInstance()
+            val year = c.get(Calendar.YEAR)
+            val month = c.get(Calendar.MONTH)
+            val day = c.get(Calendar.DAY_OF_MONTH)
+
+            DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
+                val fechaFormateada = String.format("%02d/%02d/%04d", selectedDay, selectedMonth + 1, selectedYear)
+                etFechaNacimiento.setText(fechaFormateada)
+            }, year, month, day).show()
+        }
+
+
 
         val etCambiarContrasena: Button = findViewById(R.id.cambiarContrasena)
         etCambiarContrasena.setOnClickListener {
@@ -78,14 +94,44 @@ class ActivityConfigurarPerfil : AppCompatActivity() {
 
         btnGuardarCambios.setOnClickListener {
             guardarCambios()
+            setResult(RESULT_OK)
+            finish()
+
         }
 
         btnEliminarCuenta.setOnClickListener {
            startActivity(Intent(this, ActivityEliminarCuenta::class.java))
         }
 
-        findViewById<ImageView>(R.id.atras).setOnClickListener {
-            finish()
+        val btnAtras = findViewById<ImageView>(R.id.atras)
+        btnAtras.setOnClickListener {
+            val uid = FirebaseAuth.getInstance().currentUser?.uid
+            if (uid != null) {
+                FirebaseFirestore.getInstance().collection("usuarios").document(uid)
+                    .get()
+                    .addOnSuccessListener { doc ->
+                        val tipo = doc.getString("tipoPersona")?.lowercase()
+
+                        when (tipo) {
+                            "natural" -> {
+                                startActivity(Intent(this, Mainnatural::class.java))
+                                finish()
+                            }
+                            "especialista" -> {
+                                startActivity(Intent(this, Mainespecialista::class.java))
+                                finish()
+                            }
+                            else -> {
+                                Toast.makeText(this, "Tipo de usuario no reconocido", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this, "No se pudo verificar el tipo de usuario", Toast.LENGTH_SHORT).show()
+                    }
+            } else {
+                Toast.makeText(this, "Usuario no autenticado", Toast.LENGTH_SHORT).show()
+            }
         }
     }
     private fun abrirSelectorDeImagen() {
@@ -136,9 +182,9 @@ class ActivityConfigurarPerfil : AppCompatActivity() {
             .addOnSuccessListener { document ->  // Aquí se define 'document'
                 if (document.exists()) {
                     // 1. Primero cargar los datos normales
-                    tvNombre.text = "Nombre: ${document.getString("nombre") ?: "-"}"
-                    tvApellido.text = "Apellidos: ${document.getString("apellido") ?: "-"}"
-                    tvFechaNacimiento.text = "Fecha nacimiento: ${document.getString("fechaNacimiento") ?: "-"}"
+                    etNombre.setText(document.getString("nombre") ?: "")
+                    etApellido.setText(document.getString("apellido") ?: "")
+                    etFechaNacimiento.setText(document.getString("fechaNacimiento") ?: "")
                     etUsername.setText(document.getString("usuario") ?: "")
                     etTipoPersona.setText(document.getString("tipoPersona") ?: "", false)
                     etDescripcion.setText(document.getString("descripcion") ?: "")
@@ -164,10 +210,14 @@ class ActivityConfigurarPerfil : AppCompatActivity() {
         }
 
         val updates = hashMapOf<String, Any>(
+            "nombre" to etNombre.text.toString().trim(),
+            "apellido" to etApellido.text.toString().trim(),
+            "fechaNacimiento" to etFechaNacimiento.text.toString().trim(),
             "usuario" to etUsername.text.toString().trim(),
             "tipoPersona" to etTipoPersona.text.toString().trim(),
             "descripcion" to etDescripcion.text.toString().trim()
         )
+
 
         db.collection("usuarios").document(user.uid)
             .update(updates)

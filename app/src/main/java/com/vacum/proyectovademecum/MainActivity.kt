@@ -14,7 +14,6 @@ class MainActivity : AppCompatActivity() {
 
         val btnLogin = findViewById<Button>(R.id.btnLogin)
         val btnRegister = findViewById<Button>(R.id.btnRegister)
-        val btnEmergency = findViewById<Button>(R.id.btnEmergency)
 
         btnLogin.setOnClickListener {
             startActivity(Intent(this, ActivityLogin::class.java))
@@ -26,9 +25,5 @@ class MainActivity : AppCompatActivity() {
             finish() // Esto cerrará la pantalla de login
         }
 
-
-        btnEmergency.setOnClickListener {
-            // Navegar a EmergencyActivity (aún por crear)
-        }
     }
 }

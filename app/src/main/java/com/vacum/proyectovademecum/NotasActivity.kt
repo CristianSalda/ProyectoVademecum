@@ -47,10 +47,35 @@ class NotasActivity : AppCompatActivity() {
 
         loadNotes()
 
-        // Configurar el botón de regreso
-        val btnatras = findViewById<ImageView>(R.id.atras)
-        btnatras.setOnClickListener {
-            finish()
+        val btnAtras = findViewById<ImageView>(R.id.atras)
+        btnAtras.setOnClickListener {
+            val uid = FirebaseAuth.getInstance().currentUser?.uid
+            if (uid != null) {
+                FirebaseFirestore.getInstance().collection("usuarios").document(uid)
+                    .get()
+                    .addOnSuccessListener { doc ->
+                        val tipo = doc.getString("tipoPersona")?.lowercase()
+
+                        when (tipo) {
+                            "natural" -> {
+                                startActivity(Intent(this, Mainnatural::class.java))
+                                finish()
+                            }
+                            "especialista" -> {
+                                startActivity(Intent(this, Mainespecialista::class.java))
+                                finish()
+                            }
+                            else -> {
+                                Toast.makeText(this, "Tipo de usuario no reconocido", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                    .addOnFailureListener {
+                        Toast.makeText(this, "No se pudo verificar el tipo de usuario", Toast.LENGTH_SHORT).show()
+                    }
+            } else {
+                Toast.makeText(this, "Usuario no autenticado", Toast.LENGTH_SHORT).show()
+            }
         }
 
         val perfil = findViewById<ImageView>(R.id.usuario)
