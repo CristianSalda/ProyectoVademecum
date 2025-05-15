@@ -15,6 +15,27 @@
         android:theme="@style/Theme.ProyectoVademecum"
         tools:targetApi="31">
         <activity
+            android:name=".FormularioEditarResenaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditarEliminarResenaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MisResenasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AgregarResenaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityMostrarResenas"
+            android:exported="false" />
+        <activity
+            android:name=".ListaResenasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ResenasInicioActivity"
+            android:exported="false" />
+        <activity
             android:name=".CuentaEliminadaActivity"
             android:exported="false" />
         <activity

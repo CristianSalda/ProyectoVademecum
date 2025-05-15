@@ -250,6 +250,7 @@
 
             <!-- Opción 7: Reseñas -->
             <LinearLayout
+                android:id="@+id/Resenas"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="1"

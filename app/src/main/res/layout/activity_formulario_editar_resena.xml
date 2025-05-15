@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondo"
+    android:padding="0dp">
+
+    <!-- Encabezado visual -->
+    <ImageView
+        android:id="@+id/encabezado"
+        android:layout_width="280dp"
+        android:layout_height="34dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:srcCompat="@drawable/vademecum_encabezado" />
+
+    <ImageView
+        android:id="@+id/usuario"
+        android:layout_width="50dp"
+        android:layout_height="35dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tituloResenas"
+        app:srcCompat="@drawable/imgusuario" />
+
+    <ImageView
+        android:id="@+id/atras"
+        android:layout_width="53dp"
+        android:layout_height="34dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tituloResenas"
+        app:srcCompat="@drawable/imgatras" />
+
+    <!-- Título azul -->
+    <TextView
+        android:id="@+id/tituloResenas"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:background="#007AC1"
+        android:gravity="center"
+        android:text="@string/editar_rese_a"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Contenedor azul -->
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/tituloResenas"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:id="@+id/contenedorResena"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:orientation="vertical"
+            android:background="@drawable/bg_card_azul_redondeado"
+            android:padding="16dp">
+
+            <!-- Título dentro del contenedor -->
+            <TextView
+                android:id="@+id/barraTitulo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/bg_barra_darker_rounded"
+                android:padding="12dp"
+                android:text="@string/editar_rese_a"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <!-- Barra búsqueda -->
+            <LinearLayout
+                android:id="@+id/layoutBusqueda"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/searchInput"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/rounded_search_box"
+                    android:drawablePadding="8dp"
+                    android:hint="@string/b_squeda_lupit"
+                    android:inputType="text"
+                    android:padding="12dp"
+                    android:textColor="#000000"
+                    android:textColorHint="#999999" />
+
+                <Button
+                    android:id="@+id/searchButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="#007AC1"
+                    android:text="@string/buscar"
+                    android:textColor="#FFFFFF" />
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:indeterminate="true"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+            </LinearLayout>
+
+            <!-- Medicamento seleccionado con botón eliminar -->
+            <LinearLayout
+                android:id="@+id/medicamentoSeleccionadoLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:id="@+id/tvMedicamentoSeleccionado"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/medicamento_seleccionado"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btnEliminarMedicamento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/eliminar"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14sp"
+                    android:backgroundTint="#007AC1"
+                    android:layout_marginStart="8dp" />
+            </LinearLayout>
+
+            <!-- Resultados de búsqueda -->
+            <LinearLayout
+                android:id="@+id/resultadosLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="16dp" />
+
+            <Button
+                android:id="@+id/btnCerrarResultados"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/cerrar_resultados"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#007AC1"
+                android:layout_marginBottom="16dp"
+                android:visibility="gone" />
+
+            <!-- Descripción -->
+            <EditText
+                android:id="@+id/etDescripcionEdit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:autofillHints="@string/descripci_n_de_la_rese_a"
+                android:background="@drawable/bg_edittext_rounded"
+                android:gravity="top"
+                android:hint="@string/descripci_n_de_la_rese_a"
+                android:inputType="textMultiLine"
+                android:minLines="4"
+                android:padding="12dp"
+                android:textColor="#000000"
+                android:textColorHint="#888888" />
+
+            <!-- Rating bar -->
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="@style/WhiteRatingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="24dp"
+                android:numStars="5"
+                android:stepSize="1.0" />
+
+            <!-- Botones -->
+            <LinearLayout
+                style="?android:attr/buttonBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btnGuardar"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="#00B4D8"
+                    android:text="@string/guardar"
+                    android:textColor="#FFFFFF" />
+
+                <Button
+                    android:id="@+id/btnCancelar"
+                    style="?android:attr/buttonBarButtonStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:backgroundTint="#00B4D8"
+                    android:text="@string/cancelar"
+                    android:textColor="#FFFFFF" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

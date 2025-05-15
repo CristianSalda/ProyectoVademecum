@@ -28,6 +28,12 @@ class Mainnatural : AppCompatActivity() {
             startActivity(intent)
         }
 
+        val Resenas = findViewById<LinearLayout>(R.id.Resenas)
+        Resenas.setOnClickListener {
+            val intent = Intent(this, ResenasInicioActivity::class.java)
+            startActivity(intent)
+        }
+
         val favoritos = findViewById<LinearLayout>(R.id.favoritos)
 
         favoritos.setOnClickListener {

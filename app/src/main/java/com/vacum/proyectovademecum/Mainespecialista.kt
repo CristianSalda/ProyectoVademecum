@@ -56,6 +56,11 @@ class Mainespecialista : AppCompatActivity() {
             val intent = Intent(this, HistorialActivity::class.java)
             startActivity(intent)
         }
+        val Resenas = findViewById<LinearLayout>(R.id.Resenas)
+        Resenas.setOnClickListener {
+            val intent = Intent(this, ResenasInicioActivity::class.java)
+            startActivity(intent)
+        }
 
         val preescripcion = findViewById<ImageView>(R.id.imgPreescripcion)
         preescripcion.setOnClickListener {
