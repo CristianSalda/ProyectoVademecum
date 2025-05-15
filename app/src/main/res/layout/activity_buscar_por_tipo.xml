@@ -47,6 +47,21 @@
                 android:src="@drawable/cuenta" />
 
         </RelativeLayout>
+        <TextView
+            android:id="@+id/toolbarTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#007AC1"
+            android:gravity="center"
+            android:text="@string/b_squeda_por_tipo_de_medicamento"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.062" />
 
         <LinearLayout
             android:id="@+id/searchBar"
@@ -94,7 +109,6 @@
             android:textSize="16sp"
             tools:text="Aquí se mostrarán los resultados de la búsqueda" />
 
-        <!-- FloatingActionButton dentro del ScrollView (opcional, no ideal si querés que quede fijo) -->
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="wrap_content"
@@ -102,9 +116,8 @@
             android:layout_gravity="center"
             android:visibility="gone"/>
 
-        <!-- RecyclerView -->
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/recyclerViewTipos"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="8dp"/>

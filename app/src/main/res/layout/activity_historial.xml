@@ -7,8 +7,6 @@
     android:background="#FFFFFF"
     android:layout_height="match_parent">
 
-
-    <!-- Encabezado visual -->
     <ImageView
         android:id="@+id/encabezado"
         android:layout_width="280dp"
@@ -37,7 +35,6 @@
         app:layout_constraintBottom_toTopOf="@+id/titulonotas"
         app:srcCompat="@drawable/imgatras" />
 
-    <!-- Título azul -->
     <TextView
         android:id="@+id/titulonotas"
         android:layout_width="0dp"
@@ -53,7 +50,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Texto introductorio -->
     <TextView
         android:id="@+id/textIntrohistorial"
         android:layout_width="0dp"
@@ -81,6 +77,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:padding="8dp" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
